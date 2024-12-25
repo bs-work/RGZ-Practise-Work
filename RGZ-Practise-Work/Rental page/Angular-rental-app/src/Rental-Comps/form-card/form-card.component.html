@@ -1,0 +1,116 @@
+<div class="container-lg">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>Card <b>Details</b></h2>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-info add-new" (click)="addNewCard()"
+              [disabled]="isAddNewDisabled || editDisabled">
+              <i class="fa fa-plus"></i> Add New Card
+            </button>
+            <div *ngIf="addCardErrorMessage" class="text-danger">
+              {{ addCardErrorMessage }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Error message -->
+      <div *ngIf="cards.length > 0 && cards[cards.length - 1].errorMessage" class="text-danger">
+        {{ cards[cards.length - 1].errorMessage }}
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>Date Picker</th>
+            <th>Upload File</th>
+            <th>Preview</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let card of cards; let i = index">
+            <!-- Name Field -->
+            <td *ngIf="!card.isEditing">
+              {{ card.name }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Enter name"
+                [ngClass]="{'error-placeholder': card.nameError}" />
+              <div *ngIf="card.nameError" class="text-danger">{{ card.nameError }}</div>
+            </td>
+            <!-- Location Dropdown -->
+            <td *ngIf="!card.isEditing">
+              {{ card.state }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <select class="form-control location" [(ngModel)]="card.stateId"
+                [ngClass]="{'error-placeholder': card.stateError}" [disabled]="!card.isEditing">
+                <option value="">Select an option</option>
+                <option *ngFor="let option of locationOptions" [value]="option.id"
+                  >{{ option.state }}</option>
+              </select>
+              <div *ngIf="card.stateError" class="text-danger">{{ card.locationError }}</div>
+            </td>
+            <!-- Date Picker 
+              <select [(ngModel)]="card.stateId" name="state" [disabled]="!card.isEditing">
+                <option [ngValue]="null">Select State</option>
+                <option *ngFor="let location of locationOptions" [ngValue]="location.id">
+                  {{location.state}}
+                </option>
+              </select> 
+            -->
+            <td *ngIf="!card.isEditing">
+              {{ card.datePicker | date :'dd/MM/yyyy'}}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="date" class="form-control datePicker" [(ngModel)]="card.datePicker"
+                [ngClass]="{'error-placeholder': card.datePickerError}" />
+              <div *ngIf="card.datePickerError" class="text-danger">{{ card.datePickerError }}</div>
+            </td>
+            <!-- Upload File -->
+            <td *ngIf="!card.isEditing">
+              {{ card.uploadfile || 'No file uploaded' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control uploadfile" [(ngModel)]="card.uploadfile"
+                [ngClass]="{'error-placeholder': card.uploadfileError}" [value]="card.uploadfile || 'No file chosen'"
+                disabled accept="image/*" />
+              <input type="file" (change)="onFileChange($event, i)" class="upload-file-input" style="display: none;"
+                id="fileInput{{i}}" />
+              <label for="fileInput{{i}}" class="btn btn-primary btn-sm cf">Choose File</label>
+              <div *ngIf="card.uploadfileError" class="text-danger">{{ card.uploadfileError }}</div>
+            </td>
+            <!-- File Preview -->
+            <td>
+              <a *ngIf="card.filePreview" (click)="openPreview(card, i)">
+                <img [src]="card.filePreview" alt="File Preview" class="file-preview" />
+              </a>
+            </td>
+            <!-- Actions -->
+            <td class="text-center">
+              <ng-container *ngIf="card.isEditing; else normalActions">
+                <div class="d-flex flex-column abtns">
+                  <button class="btn btn-success btn-sm subbtn my-0" (click)="saveCard(i)">Submit</button>
+                  <button class="btn btn-danger btn-sm delbtn my-1" (click)="deleteCard(i)">Delete</button>
+                  <button class="btn btn-danger btn-sm my-0 cancelbtn" (click)="cancelCard(i)">Cancel</button>
+                </div>
+              </ng-container>
+              <ng-template #normalActions>
+                <button class="btn btn-primary btn-sm" (click)="editCard(i)">Edit</button>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+

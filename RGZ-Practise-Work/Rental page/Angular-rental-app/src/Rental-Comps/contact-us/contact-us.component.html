@@ -1,0 +1,94 @@
+<div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Contact Us</h2>
+                <p class="justify-content-center d-flex">
+                    Please contact us if your questions are not answered in the FAQ section or you would like to be
+                    added to our mailing list.
+                </p>
+                <form [formGroup]="contactusForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fullName"
+                                    [ngClass]="{'error-label': contactusForm.get('fullName')?.invalid && (submitted || contactusForm.get('fullName')?.touched)}">Full
+                                  Name
+                                    <span
+                                        *ngIf="contactusForm.get('fullName')?.invalid && (submitted || contactusForm.get('fullName')?.touched)"
+                                        class="error-indicator">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="fullName" formControlName="fullName"
+                                    [placeholder]="contactusForm.get('fullName')?.invalid && (submitted || contactusForm.get('fullName')?.touched) ? 'Required' : 'Enter your full name'"
+                                    [ngClass]="{'error-placeholder': contactusForm.get('fullName')?.invalid && (submitted || contactusForm.get('fullName')?.touched)}"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"
+                                    [ngClass]="{'error-label': contactusForm.get('email')?.invalid && (submitted || contactusForm.get('email')?.touched)}">Email
+                                    ID
+                                    <span
+                                        *ngIf="contactusForm.get('email')?.invalid && (submitted || contactusForm.get('email')?.touched)"
+                                        class="error-indicator">*</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" formControlName="email"
+                                    [placeholder]="contactusForm.get('email')?.invalid && (submitted || contactusForm.get('email')?.touched) ? 'Required' : 'Enter your email'"
+                                    [ngClass]="{'error-placeholder': contactusForm.get('email')?.invalid && (submitted || contactusForm.get('email')?.touched)}"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"
+                                    [ngClass]="{'error-label': contactusForm.get('phone')?.invalid && (submitted || contactusForm.get('phone')?.touched)}">Phone
+                                    <span
+                                        *ngIf="contactusForm.get('phone')?.invalid && (submitted || contactusForm.get('phone')?.touched)"
+                                        class="error-indicator">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="phone-addon">+91</span>
+                                    </div>
+                                    <input type="tel" class="form-control" id="phone" formControlName="phone"
+                                        aria-describedby="phone-addon"
+                                        [placeholder]="contactusForm.get('phone')?.invalid && (submitted || contactusForm.get('phone')?.touched) ? 'Required' : 'Enter your phone number'"
+                                        [ngClass]="{'error-placeholder': contactusForm.get('phone')?.invalid && (submitted || contactusForm.get('phone')?.touched)}"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="message"
+                                    [ngClass]="{'error-label': contactusForm.get('message')?.invalid && (submitted || contactusForm.get('message')?.touched)}">Message
+                                    <span
+                                        *ngIf="contactusForm.get('message')?.invalid && (submitted || contactusForm.get('message')?.touched)"
+                                        class="error-indicator">*</span>
+                                </label>
+                                <textarea class="form-control" id="message" formControlName="message"
+                                    [placeholder]="contactusForm.get('message')?.invalid && (submitted || contactusForm.get('message')?.touched) ? 'Required' : 'Enter your message'"
+                                    [ngClass]="{'error-placeholder': contactusForm.get('message')?.invalid && (submitted || contactusForm.get('message')?.touched)}"
+                                    required style="height: 107px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="cityCountry"
+                                    [ngClass]="{'error-label': contactusForm.get('cityCountry')?.invalid && (submitted || contactusForm.get('cityCountry')?.touched)}">City
+                                    <span
+                                        *ngIf="contactusForm.get('cityCountry')?.invalid && (submitted || contactusForm.get('cityCountry')?.touched)"
+                                        class="error-indicator">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="cityCountry" formControlName="cityCountry"
+                                    [placeholder]="contactusForm.get('cityCountry')?.invalid && (submitted || contactusForm.get('cityCountry')?.touched) ? 'Required' : 'Enter your city, country'"
+                                    [ngClass]="{'error-placeholder': contactusForm.get('cityCountry')?.invalid && (submitted || contactusForm.get('cityCountry')?.touched)}"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="submit-container">
+                            <button type="submit" class="submit-button">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

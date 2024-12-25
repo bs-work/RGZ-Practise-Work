@@ -1,0 +1,85 @@
+<div class="backgroundColor container-fluid" >
+  <h3>
+    Student Registration!
+  </h3>
+  <p>Enter the below fields for student details.</p>
+    <form #studentForm="ngForm" (ngSubmit)="SubmitDetails(studentForm.value)">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" #controlName='ngModel' required [class.is-invalid]="controlName.invalid && controlName.touched" class="form-control" [(ngModel)]="studentModel.name" name="name">
+            <small [class.d-none]="controlName.valid || controlName.untouched"  style="color:red">*Field is required</small>
+          </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="text" class="form-control" [(ngModel)]="studentModel.email" name="email">
+              </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" #controlPhone="ngModel" required pattern="^\d{10}$" [class.is-invalid]="controlPhone.invalid && controlPhone.touched" class="form-control" [(ngModel)]="studentModel.phone" name="phone" />
+            <div *ngIf="controlPhone.errors && (controlPhone.invalid && controlPhone.touched)">
+              <small *ngIf="controlPhone.errors.required" class="text-danger">*This field is required</small>
+              <small *ngIf="controlPhone.errors.pattern" class="text-danger">*Must be 10 digit</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-4">
+              <div class="form-group">
+                  <label for="gender">gender:</label>
+                  <input type="text" class="form-control" [(ngModel)]="studentModel.gender" name="gender">
+                </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group">
+                  <label for="bloodGroup">Blood Group:</label>
+                  <select required #bloodGroup="ngModel" value="Select" class="form-control" [class.is-invalid]="bloodGroup.invalid && bloodGroup.touched" [(ngModel)]="studentModel.bloodGroup" name="bloodGroup">
+                    <option value="">Select Blood Group</option>
+                    <option *ngFor="let group of groups" >{{group}}</option>
+                  </select>
+                <small class="text-danger" *ngIf="bloodGroup.invalid && bloodGroup.touched">*Please select Blood group</small>
+                </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group">
+                <label>Course </label><br>
+                <input type="radio" [(ngModel)]="studentModel.course" name="course" value="BCA">BCA
+                <input type="radio" [(ngModel)]="studentModel.course" name="course" value="B.Tech">B.Tech
+                <input type="radio" [(ngModel)]="studentModel.course" name="course" value="BE">BE
+                <input type="radio" [(ngModel)]="studentModel.course" name="course" value="B.Sc">B.Sc
+              </div>
+          </div>
+      </div>
+      <div class="row" ngModelGroup="address">
+          <div class="col-sm-4">
+              <div class="form-group">
+                  <label>Street</label>
+                  <input type="text" class="form-control" name="street" [(ngModel)]="studentModel.address.street">
+                </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control" name="city" [(ngModel)]="studentModel.address.city">
+                </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group">
+                  <label>State</label>
+                  <input type="text" class="form-control" name="state" [(ngModel)]="studentModel.address.state">
+                </div>
+          </div>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" [(ngModel)]="studentModel.sendUpdates" name="sendUpdates"> send me updates</label>
+      </div>
+      <input type="hidden" [(ngModel)]="studentModel.id" name="id">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>

@@ -1,0 +1,87 @@
+.html,body{
+    overflow-x: hidden;
+}
+
+.behind-nav{
+    background-color: #22393c;
+}
+.Navbar a span {
+        color: white;
+      font-size: 1.5rem;  
+    }
+.Navbar a {
+        text-decoration: none;
+        color: white; 
+    }
+    
+.Navbar a:hover {
+        text-decoration: underline; 
+    }
+
+.conumber{
+    font-weight: 400;
+    font-size: large;
+}
+    
+.Navbar{
+    background-color:#22393c;
+    color: aliceblue;
+    height: 110px;
+   }
+
+ .nav-image{
+    height: 90px;
+   }
+
+.home-img{
+    width: 100%;
+    height: 40rem;
+}
+
+.main-all-content{
+    width: 100%;
+}
+.top-image-sec {
+    position: relative;
+}
+ .main-img {
+    width: 100%;
+    height: auto;
+} 
+.top-layout{
+    margin-left: 120px;
+}
+.card-contain {
+    position: absolute; 
+    top: 50%; 
+    left: 80%; 
+    transform: translate(-50%, -50%); 
+    z-index: 1; 
+    /* color: white; */
+    text-align: start; 
+}
+
+
+.pad-frame{
+    margin-left: -21px;
+}
+
+
+.main-ev-section{
+    justify-content: center;
+}
+
+.card-bg{
+    background-color: rgb(0, 115, 216);
+    width: 20px;
+    height:12px
+       
+}  
+.main-card{
+   margin-top: -36rem;
+   
+} 
+
+ /* .top-card { */
+    /* background-color: rgba(255, 255, 255, 0.8); */
+/* } */

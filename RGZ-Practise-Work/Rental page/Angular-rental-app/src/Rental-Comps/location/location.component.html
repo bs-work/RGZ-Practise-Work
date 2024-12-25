@@ -1,0 +1,111 @@
+<div class="container-lg">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>Location <b>Details</b></h2>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-info add-new" (click)="addNewCard()"
+              [disabled]="isAddNewDisabled || editDisabled">
+              <i class="fa fa-plus"></i> Add New Card
+            </button>
+            <div *ngIf="addCardErrorMessage" class="text-danger">
+              {{ addCardErrorMessage }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Error message -->
+      <div *ngIf="cards.length > 0 && cards[cards.length - 1].errorMessage" class="text-danger">
+        {{ cards[cards.length - 1].errorMessage }}
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Zip Code</th>
+            <th>Postal Code</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let card of cards; let i = index trackBy: trackById">
+            <!-- State Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.state || 'N/A' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.state" placeholder="Enter State"
+                [ngClass]="{'error-placeholder': card['isstateInvalid'] && hasAttemptedSave}" />
+              <div *ngIf="card['isstateInvalid'] && hasAttemptedSave" class="text-danger">
+                Please select a valid state.
+              </div>
+            </td>
+            <!-- City Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.city || 'N/A' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.city" placeholder="Enter City"
+                [ngClass]="{'error-placeholder': card['iscityInvalid'] && hasAttemptedSave}" />
+              <div *ngIf="card['iscityInvalid'] && hasAttemptedSave" class="text-danger">
+                Please select a valid city.
+              </div>
+            </td>
+            <!-- Address Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.address || 'N/A' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.address" placeholder="Enter Address"
+                [ngClass]="{'error-placeholder': card['isaddressInvalid'] && hasAttemptedSave}" />
+              <div *ngIf="card['isaddressInvalid'] && hasAttemptedSave" class="text-danger">
+                Please enter an address.
+              </div>
+            </td>
+            <!-- Zip Code Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.zipcode || 'N/A' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.zipcode" placeholder="Enter Zipcode"
+                [ngClass]="{'error-placeholder': card['iszipcodeInvalid'] && hasAttemptedSave}" />
+              <div *ngIf="card['iszipcodeInvalid'] && hasAttemptedSave" class="text-danger">
+                Zipcode must be a valid number.
+              </div>
+            </td>
+            <!-- Postal Code Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.postalcode || 'N/A' }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.postalcode" placeholder="Enter Postalcode"
+                [ngClass]="{'error-placeholder': card['ispostalcodeInvalid'] && hasAttemptedSave}" />
+              <div *ngIf="card['ispostalcodeInvalid'] && hasAttemptedSave" class="text-danger">
+                Postal code must be a valid number.
+              </div>
+            </td>
+            <!-- Actions Column -->
+            <td class="text-center">
+              <ng-container *ngIf="card.isEditing; else normalActions">
+                <div class="d-flex flex-column abtns">
+                  <button class="btn btn-success btn-sm subbtn" (click)="saveCard(i)"
+                    [disabled]="card['isFormInvalid']">Submit</button>
+                  <button class="btn btn-danger btn-sm delbtn my-2" (click)="deleteCard(i)">Delete</button>
+                  <button class="btn btn-danger btn-sm my-0 cancelbtn"(click)="cancelCard(i)">Cancel</button>
+                </div>
+              </ng-container>
+              <ng-template #normalActions>
+                <button class="btn btn-primary btn-sm" (click)="editCard(i)">Edit</button>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

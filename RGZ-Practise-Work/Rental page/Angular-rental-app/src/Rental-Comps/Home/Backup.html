@@ -1,0 +1,90 @@
+     <form novalidate class="form col-md-4 mx-auto">
+                <div class="card bg-secondary mt-3" style="width:100%;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pickupLocation">{{ pickupLocationLabel }}</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="pickupLocation" 
+                                        placeholder="Enter Pickup Location" 
+                                        (input)="onPickupLocationChange($event)">
+                                </div>                               
+                                <div class="form-group">
+                                    <label for="pickupDate">Pickup Date</label>
+                                    <input type="date" class="form-control" id="pickupDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pickupTime">Pickup Time</label>
+                                    <input type="time" class="form-control" id="pickupTime">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dropoffLocation">{{ dropoffLocationLabel }}</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="dropoffLocation" 
+                                        placeholder="Enter Drop Off Location" 
+                                        [(ngModel)]="dropoffLocation" 
+                                        (input)="onDropoffLocationChange($event)" 
+                                        [ngModelOptions]="{ standalone: true }">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropoffDate">{{ dropoffDateLabel }}</label>
+                                    <input 
+                                      type="date" 
+                                      class="form-control" 
+                                      id="dropoffDate" 
+                                      [(ngModel)]="dropoffDate" 
+                                      (input)="onDropoffDateChange($event)" 
+                                      [ngModelOptions]="{ standalone: true }">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="dropoffTime">{{ dropoffTimeLabel }}</label>
+                                    <input 
+                                      type="time" 
+                                      class="form-control" 
+                                      id="dropoffTime" 
+                                      [(ngModel)]="dropoffTime" 
+                                      (input)="onDropoffTimeChange($event)" 
+                                      [ngModelOptions]="{ standalone: true }">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <select class="form-control" id="age">
+                                        <option value="">Select Age</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="promoCode">Promo Code</label>
+                                    <input type="text" class="form-control" id="promoCode" placeholder="Enter Promocode">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+                    </div>
+                </div>
+            </form>

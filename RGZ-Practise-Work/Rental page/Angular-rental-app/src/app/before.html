@@ -1,0 +1,238 @@
+after succesful login have one welcome in other page also message anf there is logout button i want that do i need to change csharp or just angular also change here in this both file first 
+<!-- Login and SignUp Form -->
+<section class="vh-100 gradient-custom">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-2 px-5 text-center">
+                        <div class="mb-md-0 mt-md-4 pb-5">
+                            <!-- Title and description -->
+                            <h2 class="fw-bold mb-1 text-uppercase">{{ isLoginVisible ? 'Login' : 'Sign Up' }}</h2>
+                            <p class="text-white-50 mb-5">{{ isLoginVisible ? 'Please enter your login and password!' : 'Please enter your details to create an account!' }}</p>
+                            <!-- Display error messages -->
+                            <div *ngIf="errorMessages.length > 0" class="alert alert-danger" role="alert">
+                                <div *ngFor="let message of errorMessages">{{ message }}</div>
+                              </div>                              
+                            <!-- Display success message from backend -->
+                            <div *ngIf="successMessage" class="alert alert-success" role="alert">
+                                {{ successMessage }}
+                            </div>
+                            <!-- Login Form -->
+                                <div *ngIf="isLoginVisible" class="wholefield">
+                                    <div class="form-outline form-white mb-3">
+                                        <input [(ngModel)]="loginEmail" type="email" id="typeEmailX" class="form-control form-control-lg" placeholder=" " required />
+                                        <label class="form-label" for="typeEmailX">Email</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input [(ngModel)]="loginPassword" type="password" id="typePasswordX" class="form-control form-control-lg" placeholder=" " required />
+                                        <label class="form-label" for="typePasswordX">Password</label>
+                                    </div>   
+                                <button class="btn btn-outline-light btn-lg px-4 position-absolute top-80 start-60 translate-middle login " (click)="onLoginSubmit()">Login</button>
+                            </div>
+                            <!-- SignUp Form -->
+                            <div *ngIf="!isLoginVisible ">
+                                <div class="form-outline form-white">
+                                    <input [(ngModel)]="username" type="text" id="typeUsername" class="form-control form-control-lg" placeholder=" " required />
+                                    <label class="form-label" for="typeUsername">Username</label>
+                                </div>
+                                <div class="form-outline form-white mb-2">
+                                    <input [(ngModel)]="email" type="email" id="typeEmailSignup" class="form-control form-control-lg" placeholder=" " required />
+                                    <label class="form-label" for="typeEmailSignup">Email</label>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input [(ngModel)]="password" type="password" id="typePasswordSignup" class="form-control form-control-lg" placeholder=" " required />
+                                    <label class="form-label" for="typePasswordSignup">Password</label>
+                                </div>
+                                <button class="btn btn-outline-light btn-lg px-4 position-absolute top-10 start-30 translate-middle signup " (click)="onSignupSubmit()">Sign Up</button>
+                            </div>
+                        </div>
+                        <!-- Toggle between Login and SignUp forms -->
+                        <div>
+                            <p class="mb-2 py-3 already">
+                                <a class="text-white-50 fw-bold link-animate" (click)="toggleForms()">
+                                    {{ isLoginVisible ? "Don't have an account? Sign Up" : "Already have an account? Login" }}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-authentication',
+  templateUrl: './authentication.component.html',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  styleUrls: ['./authentication.component.css']
+})
+
+export class AuthenticationComponent {
+  isLoginVisible: boolean = true;
+
+  // Form data
+  username: string = '';
+  email: string = '';
+  password: string = '';
+  loginEmail: string = '';
+  loginPassword: string = '';
+
+  // Messages
+  errorMessages: string[] = [];
+  successMessage: string = ''; 
+
+  constructor(private authService: AuthService) {}
+
+  // Toggle between Login and SignUp forms
+  toggleForms() {
+    this.isLoginVisible = !this.isLoginVisible;
+    this.errorMessages = []; 
+    this.successMessage = ''; 
+  }
+
+  // Handle login submission 
+  onLoginSubmit() {
+    this.authService.login(this.loginEmail, this.loginPassword).subscribe(
+      response => {
+        this.errorMessages = [];
+        this.successMessage = 'Login successful!'; 
+        setTimeout(() => {
+          this.successMessage = '';
+          this.redirectToLogin();
+        }, 3000);
+      },
+      
+      error => {
+        this.errorMessages = []; 
+        if (Array.isArray(error)) {  
+          this.errorMessages = error; 
+        } else {
+          this.errorMessages.push('Login failed. Please try again.'); 
+        }
+        this.successMessage = ''; 
+      }
+    );
+  }
+
+  // Handle signup submission
+  onSignupSubmit() {
+    this.authService.register(this.username, this.email, this.password).subscribe(
+      response => {
+        this.errorMessages = []; 
+        this.successMessage = 'Registration successful! Redirecting to login...'; 
+        setTimeout(() => {
+          this.successMessage = '';
+          this.redirectToLogin();
+        }, 3000); 
+      },
+      error => {
+        this.errorMessages = []; 
+        if (Array.isArray(error)) {
+          this.errorMessages = error; 
+        } else {
+          this.errorMessages.push('Registration failed. Please try again.'); 
+        }
+        this.successMessage = ''; 
+      }
+    );
+  }
+
+  redirectToLogin() {
+    this.isLoginVisible = false; 
+  }
+}
+
+
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+// for login and registration data
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface RegistrationData {
+  UserName: string;
+  Email: string;
+  Password: string;
+}
+
+// interface for the expected response
+export interface AuthResponse {
+  token?: string; 
+  message?: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+
+export class AuthService {
+  logout() {
+    throw new Error('Method not implemented.');
+  }
+  private apiUrl = 'https://localhost:44320/api/Registration';
+
+  constructor(private http: HttpClient) {}
+
+  // Login method
+  login(email: string, password: string): Observable<AuthResponse> {
+    const loginData: LoginData = { email, password };
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData).pipe(
+      catchError(this.handleError) 
+    );
+  }
+  
+  // Register method
+  register(username: string, email: string, password: string): Observable<AuthResponse> {
+    const registrationData: RegistrationData = { UserName: username, Email: email, Password: password };
+    return this.http.post<AuthResponse>(`${this.apiUrl}/registration`, registrationData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Something went wrong; please try again later.';
+  
+    // Log the error
+    console.error(`Backend returned code ${error.status}, body was:`, error.error);
+  
+    // Check if the error contains a custom message from the backend
+    if (error.error && error.error.messages) {
+      // Backend messages might be an array of strings or an object
+      return throwError(error.error.messages || [error.error.message || errorMessage]);
+    } else {
+      // Handle other errors
+      switch (error.status) {
+        case 0:
+          errorMessage = 'Network error. Please check your internet connection.';
+          break;
+        case 401:
+          errorMessage = 'Unauthorized access. Please check your credentials.';
+          break;
+        case 400:
+          errorMessage = 'Bad request. Please check your input.';
+          break;
+        case 500:
+          errorMessage = 'Server error. Please try again later.';
+          break;
+        default:
+          errorMessage = `Unexpected error: ${error.message}`;
+          break;
+      }
+    }
+    return throwError([errorMessage]); // Wrap error message in an array
+  }
+  
+}

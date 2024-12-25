@@ -1,0 +1,235 @@
+/* .card{
+  height: 20rem;
+  width: 71rem;
+} */
+.html, body {margin: 0; height: 100%; overflow: hidden}
+
+.car-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  display: flex;
+
+  background-color: white;
+  height: 7rem;
+}
+
+.car-head {
+  margin-top: 10px;
+}
+
+.car-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+.car-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.car-model {
+  font-size: 0.9rem;
+}
+
+.car-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+.petrol{
+  width: 33px;
+  height: 30px;
+}
+.car-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Car Specs Section */
+/* .car-specs {
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: -10px 0;
+    align-items: flex-start;
+    margin-bottom: 180px;
+  } */
+
+.price-section {
+  background-color: #006af5;
+  color: #ccd8e2;
+  font-weight: bolder;
+  padding: 3px;
+  /* padding-right: -20px; */
+  max-width: 10rem;
+  border-radius: 5px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.from {
+  margin-right: 87px;
+  font-size: large;
+}
+
+.select-btn {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 12px 59px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-right: 20px;
+  margin-top: 90px;
+}
+
+
+@media only screen and (max-width: 660px) {
+  /* .card{
+  background-color: aquamarine;
+} */
+
+  .r-car {
+    margin-bottom: -120px;
+    margin-top: -12px;
+    /* background-color: aqua; */
+    height: 20px;
+  }
+
+  .car-image {
+    max-width: 11rem;
+    margin-bottom: 30px;
+    margin-top: -20px;
+  }
+  .lt-icon{
+   margin-right: -30px;
+  }
+
+  .petrol{
+  margin-left: -30px;
+  margin-right: 13px;
+  width: 25px;
+  height: 24px;
+  text-indent: 15px;
+  }
+
+  .car-specs {
+    /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+    font-size: large;
+    margin-right: 51px;
+    text-indent: -15px;
+    font-weight: 400;
+  }
+
+  .price {
+    font-size: smaller;
+    margin-right: 1px;
+    padding: 0px;
+    font-weight: 700;
+  }
+
+  .price-section {
+    margin-left: 15px;
+    margin-right: -50px;
+    margin-top: 30px;
+    margin-bottom: -1px;
+    justify-content: end;
+    height: 50px;
+    width: 114px;
+    padding: 0px;
+  }
+
+  .car-title {
+    font-size: larger;
+    margin-left: 12px;
+  }
+
+  .car-subtitle {
+   font-size: 15px;
+  margin-left: 12px;
+   margin-bottom: 5px;
+   font-weight: 600;
+   font-size: large;
+   white-space: nowrap;
+  }
+
+  .seat{
+    margin-left: -30px;
+    margin-right: 13px;
+    width: 25px;
+    height: 24px;
+    text-indent: 15px;
+  }
+  .car-model {
+    font-size: large;
+    margin-right: -120px;
+    margin-left: 12px;
+    font-weight: 500;
+  }
+
+  .tjod {
+    white-space: nowrap;
+    font-size: smaller;
+    margin: 0px 0px 6px 2px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
+  .from {
+    margin-right: 58px;
+    font-weight: 600;
+    color: #e0e0e0;
+  }
+
+  .s-price {
+    margin-top: -120px;
+    margin-right: 30px;
+  }
+
+  .select-btn {
+    margin-top: 10px;
+    margin-left: 16px;
+    width: 115px;
+    height: 40px;
+    padding: 0px;
+    margin-bottom: 17px;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .card {
+    height: 22rem;
+    width: 20.8rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .select-btn {
+    margin-top: 0px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .car-specs {
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: -10px 0;
+    align-items: flex-start;
+  }
+}

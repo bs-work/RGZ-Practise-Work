@@ -1,0 +1,573 @@
+<div class="container mt-4">
+    <h2>Add Cards</h2>
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="cardForm" (ngSubmit)="addCard()">
+          <div class="form-group">
+            <label>Name <span *ngIf="cardForm.get('name')?.invalid && (cardForm.get('name')?.touched || submitted)" class="text-danger">*</span></label>
+            <input formControlName="name" 
+                   class="form-control" 
+                   [ngClass]="{'is-invalid': cardForm.get('name')?.invalid && (cardForm.get('name')?.touched || submitted)}" 
+                   placeholder="Enter name" />
+          </div>
+          <div class="form-group">
+            <label>Dropdown <span *ngIf="cardForm.get('dropdown')?.invalid && (cardForm.get('dropdown')?.touched || submitted)" class="text-danger">*</span></label>
+            <select formControlName="dropdown" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid': cardForm.get('dropdown')?.invalid && (cardForm.get('dropdown')?.touched || submitted)}">
+              <option value="">Select an option</option>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+            </select>
+          </div>      
+          <div class="form-group">
+            <label>Date <span *ngIf="cardForm.get('date')?.invalid && (cardForm.get('date')?.touched || submitted)" class="text-danger">*</span></label>
+            <input type="date" formControlName="date" 
+                   class="form-control" 
+                   [ngClass]="{'is-invalid': cardForm.get('date')?.invalid && (cardForm.get('date')?.touched || submitted)}" />
+          </div>
+          <button type="submit" class="btn btn-primary add-card">Add Card</button>
+        </form>
+      </div>
+    </div>
+    <div class="mt-4">
+      <h3>Cards</h3>
+      <div *ngFor="let card of cards; let i = index" class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.value.name }}</h5>
+          <p class="card-text">Dropdown: {{ card.value.dropdown }}</p>
+          <p class="card-text">Date: {{ card.value.date | date }}</p>
+          <button class="btn btn-danger" (click)="deleteCard(i)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+import { Component} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-form-card',
+  standalone: true,
+  imports: [FormsModule,CommonModule,ReactiveFormsModule],
+  templateUrl: './form-card.component.html',
+  styleUrl: './form-card.component.css'
+})
+
+export class FormCardComponent {
+  cards: FormGroup[] = [];
+  cardForm: FormGroup;
+  submitted: boolean = false; 
+
+  constructor(private fb: FormBuilder) {
+    this.cardForm = this.fb.group({
+      name: ['', Validators.required],
+      dropdown: ['', Validators.required],
+      date: ['', Validators.required],
+    });
+  }
+
+  addCard() {
+    this.submitted = true; 
+    if (this.cardForm.valid) {
+      this.cards.push(this.fb.group({ ...this.cardForm.value }));
+      this.cardForm.reset();
+      this.submitted = false; 
+    }
+  }
+
+  deleteCard(index: number) {
+    this.cards.splice(index, 1);
+  }
+}
+
+
+<div class="container mt-4 main-card">
+  <h2>Add Cards</h2>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="cardForm" (ngSubmit)="addCard()">
+        <div class="form-group">
+          <label>Name <span *ngIf="cardForm.get('name')?.invalid && (cardForm.get('name')?.touched || submitted)" class="text-danger">*</span></label>
+          <input formControlName="name" 
+                 class="form-control" 
+                 [ngClass]="{'is-invalid': cardForm.get('name')?.invalid && (cardForm.get('name')?.touched || submitted)}" 
+                 placeholder="Enter name"/>
+        </div>
+        <div class="form-group">
+          <label>Dropdown <span *ngIf="cardForm.get('dropdown')?.invalid && (cardForm.get('dropdown')?.touched || submitted)" class="text-danger">*</span></label>
+          <select formControlName="dropdown" 
+                  class="form-control" 
+                  [ngClass]="{'is-invalid': cardForm.get('dropdown')?.invalid && (cardForm.get('dropdown')?.touched || submitted)}">
+            <option value="">Select an option</option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+          </select>
+        </div> 
+        <div class="form-group">
+          <label>Date <span *ngIf="cardForm.get('date')?.invalid && (cardForm.get('date')?.touched || submitted)" class="text-danger">*</span></label>
+          <input type="date" formControlName="date" 
+                 class="form-control" 
+                 [ngClass]="{'is-invalid': cardForm.get('date')?.invalid && (cardForm.get('date')?.touched || submitted)}" />
+        </div>
+        <button type="submit" class="btn btn-primary add-card">{{ editMode ? 'Update Card' : 'Add Card' }}</button>
+      </form>
+    </div>
+  </div>
+  <div class="mt-4 added-card">
+    <h3>Cards</h3>
+    <div *ngFor="let card of cards; let i = index" class="card mb-2">
+      <div class="card-body">
+        <h5 class="card-title">{{ card.value.name }}</h5>
+        <p class="card-text">Selected: {{ card.value.dropdown }}</p>
+        <p class="card-text">Date: {{ card.value.date | date }}</p>
+        <!-- <button class="btn btn-info ed-bt" (click)="editCard(i)">Edit</button> -->
+        <button class="btn btn-danger dt-bt" (click)="deleteCard(i)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-form-card',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  templateUrl: './form-card.component.html',
+  styleUrls: ['./form-card.component.css']
+})
+
+export class FormCardComponent {
+  cards: FormGroup[] = [];
+  cardForm: FormGroup;
+  submitted: boolean = false; 
+  editMode: boolean = false; 
+  editIndex: number | null = null; 
+
+  constructor(private fb: FormBuilder) {
+    this.cardForm = this.fb.group({
+      name: ['', Validators.required],
+      dropdown: ['', Validators.required],
+      date: ['', Validators.required],
+    });
+  }
+
+  addCard() {
+    this.submitted = true; 
+    if (this.cardForm.valid) {
+      if (this.editMode) {
+        this.cards[this.editIndex!] = this.fb.group({ ...this.cardForm.value });
+        this.editMode = false;
+      } else {
+        this.cards.push(this.fb.group({ ...this.cardForm.value }));
+      }
+      this.cardForm.reset();
+      this.submitted = false; 
+    }
+  }
+
+  // editCard(index: number) {
+  //   this.editMode = true;
+  //   this.editIndex = index;
+  //   this.cardForm.patchValue(this.cards[index].value);
+  // }
+
+  deleteCard(index: number) {
+    this.cards.splice(index, 1);
+    if (this.editIndex === index) {
+      this.editMode = false;
+      this.cardForm.reset();
+    }
+  }
+}
+
+<!-- check why my dropdown option it's not getting selected -->
+<div class="container mt-4 main-card">
+  <h2>Some Cards</h2>
+  <div class="mt-4 added-card">
+    <div *ngFor="let card of cards; let i = index" class="card mb-2">
+      <div class="card-body">
+        <form [formGroup]="card" (ngSubmit)="submit(i)">
+
+          <!-- Name Field -->
+          <div class="form-group">
+            <label>Name
+              <span *ngIf="card.get('name')?.invalid && card.get('name')?.touched" class="text-danger">*</span>
+            </label>
+            <input formControlName="name" class="form-control"
+              [ngClass]="{'is-invalid': card.get('name')?.invalid && card.get('name')?.touched}"
+              [placeholder]="card.get('name')?.invalid && card.get('name')?.touched ? 'Name is required' : 'Enter name'" />
+            <div *ngIf="card.get('name')?.invalid && card.get('name')?.touched" class="text-danger">
+              <div *ngIf="card.get('name')?.hasError('required')">Please enter a name.</div>
+              <div *ngIf="card.get('name')?.hasError('nameTaken')">This name is already taken.</div>
+              <div *ngIf="card.get('name')?.hasError('hasNumber')">Numbers can't be used as names.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Dropdown
+              <span *ngIf="card.get('dropdown')?.invalid && card.get('dropdown')?.touched" class="text-danger">*</span>
+            </label>
+            <ng-select [items]="dropdownList" bindLabel="item_text" bindValue="item_id" [(ngModel)]="selectedItems[i]"
+              [multiple]="true" placeholder="Select options" (change)="onItemSelect($event, i)" [clearable]="true"
+              [items]="getAvailableOptionsForCard(i)" 
+              [closeOnSelect]="true" [ngModelOptions]="{standalone: true}" [compareWith]="compareWith">
+            </ng-select>
+            <div *ngIf="card.get('dropdown')?.invalid && card.get('dropdown')?.touched" class="text-danger">
+              Please select at least one option.
+            </div>
+            <!-- <div *ngIf="duplicateSubmissionError && card.get('dropdown')?.touched" class="text-danger">
+              Option has been submitted. Choose another.
+            </div> -->
+          </div>
+
+          <!-- Date Field -->
+          <div class="form-group">
+            <label>Date
+              <span *ngIf="card.get('date')?.invalid && card.get('date')?.touched" class="text-danger">*</span>
+            </label>
+            <input type="date" formControlName="date" class="form-control"
+              [ngClass]="{'is-invalid': card.get('date')?.invalid && card.get('date')?.touched}"
+              [placeholder]="card.get('date')?.invalid && card.get('date')?.touched ? 'Date is required' : ''" />
+            <div *ngIf="card.get('date')?.invalid && card.get('date')?.touched" class="text-danger">
+              Please select a date.
+            </div>
+          </div>
+
+          <!-- Upload File Section -->
+          <div class="form-group">
+            <label for="myfile-{{i}}">Upload File</label>
+            <input type="file" (change)="handleFileInput($event, i)" id="myfile-{{i}}" name="myfile"
+              [attr.data-index]="i" [placeholder]="fileNames[i] ? 'File uploaded' : 'Please upload a file'"
+              class="form-control"/>
+            <div
+              *ngIf="!fileNames[i] && card.get('name')?.touched && card.get('dropdown')?.touched && card.get('date')?.touched"
+              class="text-danger">
+              Please upload a file.
+            </div>
+
+            <!-- Display File Preview if available -->
+            <div *ngIf="filePreviews[i]" class="mt-2">
+              <img [src]="filePreviews[i]" alt="File preview" class="img-fluid" />
+              <p><strong>File Name:</strong> {{ fileNames[i] }}</p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="btns">
+            <button type="button" class="btn btn-danger dt-bt" (click)="deleteCard(i)">Delete</button>
+            <button type="button" class="btn btn-primary mt-3 ad-bt" (click)="addCard()">Add Card</button>
+            <button type="submit" class="btn btn-primary mt-3 st-bt">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submitted Cards Section -->
+  <div class="mt-4">
+    <h3>Submitted Cards</h3>
+    <div *ngFor="let submittedCard of submittedCards; let j = index" class="card mb-2">
+      <div class="card-body">
+        <p><strong>Card {{ j + 1 }}</strong></p>
+        <p>Name: {{ submittedCard.name }}</p>
+        <p>Dropdown: {{ submittedCard.dropdown | json }}</p>
+        <p>Date: {{ submittedCard.date | date:'dd/MM/yyyy'}}</p>
+
+        <!-- Display uploaded file name -->
+        <div *ngIf="submittedCard.uploadfile">
+          <p><strong>Uploaded File:</strong> {{ submittedCard.uploadfile }}</p>
+        </div>
+
+        <!-- Show file preview if available -->
+        <div *ngIf="submittedCard.filePreview">
+          <img [src]="submittedCard.filePreview" alt="File preview" class="img-fluid" />
+        </div>
+
+        <!-- Edit Button -->
+        <button type="button" class="btn btn-warning ed-bt mt-3 " (click)="editSelectedCard(j)">
+          Edit
+        </button>
+
+        <!-- Delete Button -->
+        <button type="button" class="btn btn-danger det-bt mt-3 " (click)="deleteSelectedCard(j)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+interface DropdownItem {
+  item_id: number;
+  item_text: string;
+}
+
+@Component({
+  selector: 'app-form-card',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, NgSelectModule],
+  templateUrl: './form-card.component.html',
+  styleUrls: ['./form-card.component.css']
+})
+
+export class FormCardComponent implements OnInit {
+  cards: FormGroup[] = [];
+  submittedCards: any[] = [];
+  dropdownList: DropdownItem[] = [];
+  selectedItems: any[] = [];
+  fileNames: string[] = [];
+  filePreviews: string[] = [];  
+  editingIndex: number | null = null;
+
+  constructor(private fb: FormBuilder) {  
+    this.addCard();  
+  }
+
+//Dropdownlist Initializer 
+  ngOnInit() {
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Option 1' },
+      { item_id: 2, item_text: 'Option 2' },
+      { item_id: 3, item_text: 'Option 3' }
+    ];
+  }
+
+//Dropdown Compare 
+  compareWith(item1: DropdownItem, item2: DropdownItem): boolean {
+    return item1 && item2 ? item1.item_id === item2.item_id : item1 === item2;
+  }
+
+  // onItemSelect(item: any, index: number) {
+  //   this.selectedItems[index] = item;
+  //   this.cards[index].get('dropdown')?.setValue(this.selectedItems[index].map((i: { item_id: any; }) => i.item_id));
+  // }
+
+  onItemSelect(item: any, index: number) {
+    this.selectedItems[index] = item;
+    const selectedItemIds = this.selectedItems[index].map((i: { item_id: any; }) => i.item_id);
+    this.cards[index].get('dropdown')?.setValue(selectedItemIds);
+    this.duplicateSubmissionError = false; // Reset duplicate submission error
+    this.cards[index].get('dropdown')?.markAsUntouched(); // Clear the touched state if needed
+  }
+  
+//Form Validators 
+  createCardForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required, this.uniqueNameValidator(this.submittedCards), this.nonumber(this.submittedCards)]],
+      dropdown: [[], Validators.required],
+      date: ['', Validators.required],
+    });
+  }
+
+   // Custom validator to check if the name contains --number-- in the submitted cards
+  nonumber(_submittedCards: any[]): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null; 
+      }
+      const hasNumber = /\d/.test(control.value);
+      return hasNumber ? { hasNumber: true } : null;
+    };
+  }
+  
+  // Custom validator to check if the --name-- already exists
+  uniqueNameValidator(submittedCards: any[]): any {
+      return (control: AbstractControl): ValidationErrors | null => {
+        if (!control.value) {
+          return null;
+        }
+        const nameExists = submittedCards.some(card => card.name === control.value);
+        return nameExists ? { nameTaken: true } : null;
+      };
+    }
+
+//Main card
+  addCard() {
+    const newCard = this.createCardForm();
+    this.cards.push(newCard);
+    this.selectedItems.push([]); 
+    this.fileNames.push('');
+    this.filePreviews.push('');  
+  }
+
+  deleteCard(index: number) {
+    if (index === 0) {
+      return; // Main card can't be deleted
+    }
+    this.cards.splice(index, 1);
+    this.selectedItems.splice(index, 1);  
+    this.fileNames.splice(index, 1); 
+    this.filePreviews.splice(index, 1);
+  }
+
+  handleFileInput(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+        // Check if the file name already exists in submitted cards
+        const fileNameExists = this.submittedCards.some(card => card.uploadfile === file.name);
+        if (fileNameExists) {
+            alert('This file has already been uploaded. Please choose a different file.');
+            // Clear the input
+            event.target.value = '';
+            return;
+        }
+        this.fileNames[index] = file.name;
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.filePreviews[index] = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+  // Generate available options dynamically for each card
+  getAvailableOptionsForCard(_cardIndex: number): DropdownItem[] {
+    const selectedOptions = new Set<string>();
+
+    // Add already selected options from other submitted cards to the set
+    this.submittedCards.forEach(card => {
+      card.dropdown.forEach((option: string) => {
+        selectedOptions.add(option);
+      });
+    });
+
+    // the dropdown list with disabled options based on the selected options
+    return this.dropdownList.map(option => ({
+      item_id: option.item_id,
+      item_text: option.item_text,
+      disabled: selectedOptions.has(option.item_text) // Mark as disabled if already selected
+    }));
+  }
+
+  isImageFile(fileName: string): boolean {
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+    return ['jpg', 'jpeg', 'png', 'gif',].includes(fileExtension ?? '');
+  }
+
+  duplicateSubmissionError: boolean = false; 
+
+submit(index: number) {
+  // Manually mark all controls as touched to trigger validation
+  const controls = this.cards[index].controls;
+  for (const control in controls) {
+      if (controls.hasOwnProperty(control)) {
+          controls[control].markAsTouched();
+      }
+  }
+
+  // Check if the dropdown is empty
+  if (this.cards[index].get('dropdown')?.invalid) {
+      return; // Prevent submission if dropdown is invalid
+  }
+
+  // If the form is valid and the dropdown is valid, check for duplicate submission
+  if (this.cards[index].valid && !this.cards[index].get('name')?.hasError('nameTaken')) {
+      const cardValue = this.cards[index].value;
+      const dropdownTexts = cardValue.dropdown.map((id: number) => {
+          return this.dropdownList.find(item => item.item_id === id)?.item_text;
+      });
+
+      // Check for duplicates in selected dropdown values
+      const hasDuplicates = new Set(dropdownTexts).size !== dropdownTexts.length;
+      if (hasDuplicates) {
+          alert('Duplicate dropdown selections are not allowed. Please select unique options.');
+          return; // Prevent submission
+      }
+
+      // // Check if the selected dropdown options already exist in submittedCards
+      // const alreadySubmitted = this.submittedCards.some(card => {
+      //     const submittedDropdowns = card.dropdown;
+      //     return submittedDropdowns.length === dropdownTexts.length && 
+      //            submittedDropdowns.every((text: any) => dropdownTexts.includes(text));
+      // });
+
+      // Check across all cards if any dropdown value is repeated
+      const allDropdowns = this.submittedCards.flatMap(card => card.dropdown);
+      const hasCommonValues = dropdownTexts.some((value: any) => allDropdowns.includes(value));
+
+      if (hasCommonValues) {
+          this.duplicateSubmissionError = true; // Set the error flag
+          // alert('Duplicate values detected across cards. Please choose unique values.');
+          return; // Prevent submission
+      } else {
+          this.duplicateSubmissionError = false; // Reset the error flag if no duplicates
+      }
+
+      // Handle card update or addition
+      if (this.editingIndex !== null) {
+          this.submittedCards[this.editingIndex] = {
+              name: cardValue.name,
+              dropdown: dropdownTexts,
+              date: cardValue.date,
+              uploadfile: this.fileNames[index] || 'No file uploaded',
+              filePreview: this.filePreviews[index] || '',
+          };
+          this.editingIndex = null;
+      } else {
+          this.submittedCards.push({
+              name: cardValue.name,
+              dropdown: dropdownTexts,
+              date: cardValue.date,
+              uploadfile: this.fileNames[index] || 'No file uploaded',
+              filePreview: this.filePreviews[index] || ''
+          });
+      }
+
+      // Reset the form after submission
+      this.cards[index].reset({
+          name: '',
+          dropdown: [],
+          date: ''
+      });
+
+      this.selectedItems[index] = [];
+      this.fileNames[index] = ''; 
+      this.filePreviews[index] = '';
+
+      const fileInput = document.querySelector(`input[type="file"][data-index="${index}"]`) as HTMLInputElement;
+      if (fileInput) {
+          fileInput.value = '';
+      }
+  }
+}
+
+
+editSelectedCard(index: number) {
+    const cardToEdit = this.submittedCards[index];
+    this.editingIndex = index;
+
+    // Set the selected items based on the dropdown values from the submitted card
+    this.selectedItems[0] = cardToEdit.dropdown.map((itemText: string) => {
+      return this.dropdownList.find(item => item.item_text === itemText);
+    }).filter((item: undefined) => item !== undefined);
+
+    this.cards[0].patchValue({
+      name: cardToEdit.name,
+      dropdown: this.selectedItems[0].map((item: { item_id: any; }) => item.item_id),
+      date: cardToEdit.date
+    });
+
+    this.fileNames[0] = cardToEdit.uploadfile || '';
+    this.filePreviews[0] = cardToEdit.filePreview || '';
+  }
+
+  deleteSelectedCard(index: number) {
+    this.submittedCards.splice(index, 1);
+  }
+}

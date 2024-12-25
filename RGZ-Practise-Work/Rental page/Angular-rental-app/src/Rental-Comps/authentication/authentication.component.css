@@ -1,0 +1,92 @@
+.gradient-custom {
+    /* background: #11afcb;
+    background: -webkit-linear-gradient(to right, rgb(15, 136, 235), rgba(37, 117, 252, 1)); */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 0px 0px #02020229;
+}
+
+.link-animate {
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.link-animate:hover {
+    animation: pick 0.3s forwards;
+    color: #fff;  
+    text-decoration: underline; 
+}
+
+.form-outline {
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.wholefield{
+    margin-bottom: 30px;
+}
+
+.form-outline input {
+    padding: 1.6rem; 
+    padding-top: 3rem; 
+    border: none; 
+    border-bottom: 1px solid #aaa; 
+    background-color: transparent; 
+    color: #fff;
+    font-size: 1rem; 
+    transition: border-color 0.3s ease; 
+    margin-top: 5px;
+}
+
+.form-outline input:focus {
+    outline: none;
+    border-bottom: 1px solid #fff;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.login{
+    margin-top: 25px;
+}
+
+.signup{
+    margin-top: 20px;
+}
+
+.form-outline label {
+    position: absolute;
+    top: 1.6rem; 
+    left: 1rem;
+    color: #aaa;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.form-outline input:focus ~ label,
+.form-outline input:not(:placeholder-shown) ~ label {
+    top: 0.5rem; 
+    left: 1rem;
+    font-size: 0.875rem; 
+    color: #fff; 
+}
+
+/* .error {
+    margin-bottom: 50px;
+} */
+
+.btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgba(223, 193, 193, 0.2); 
+    color: #fff; 
+}

@@ -1,0 +1,840 @@
+<!-- <div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <h2>Contact Us</h2>
+                    <p class="justify-content-center d-flex">
+                        Please contact us if your questions are not answered in the FAQ section or you would like to be added to our mailing list.
+                    </p>
+                </div>
+                <form [formGroup]="contactusForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-6">  
+                            <div class="form-group">
+                                <label for="fullName">Full Name 
+                                    <span *ngIf="formErrorMessages['fullName']" class="error-message">{{ formErrorMessages['fullName'] }}</span>
+                                </label>
+                                <input type="text" class="form-control" id="fullName" 
+                                       formControlName="fullName" 
+                                       [placeholder]="'Enter your full name'" 
+                                       [ngClass]="{'error-placeholder': formErrorMessages['fullName']}" 
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email ID 
+                                    <span *ngIf="formErrorMessages['email']" class="error-message">{{ formErrorMessages['email'] }}</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" 
+                                       formControlName="email" 
+                                       [placeholder]="'Enter your email'" 
+                                       [ngClass]="{'error-placeholder': formErrorMessages['email']}" 
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone 
+                                    <span *ngIf="formErrorMessages['phone']" class="error-message">{{ formErrorMessages['phone'] }}</span>
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="phone-addon">+91</span>
+                                    </div>
+                                    <input type="tel" class="form-control" id="phone" 
+                                           formControlName="phone" 
+                                           aria-describedby="phone-addon" 
+                                           [placeholder]="'Enter your phone number'" 
+                                           [ngClass]="{'error-placeholder': formErrorMessages['phone']}" 
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="message">Message 
+                                    <span *ngIf="formErrorMessages['message']" class="error-message">{{ formErrorMessages['message'] }}</span>
+                                </label>
+                                <textarea class="form-control" id="message" 
+                                          formControlName="message" 
+                                          [placeholder]="'Enter your message'" 
+                                          [ngClass]="{'error-placeholder': formErrorMessages['message']}" 
+                                          required style="height: 107px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="cityCountry">City, Country 
+                                    <span *ngIf="formErrorMessages['cityCountry']" class="error-message">{{ formErrorMessages['cityCountry'] }}</span>
+                                </label>
+                                <input type="text" class="form-control" id="cityCountry" 
+                                       formControlName="cityCountry" 
+                                       [placeholder]="'Enter your city, country'" 
+                                       [ngClass]="{'error-placeholder': formErrorMessages['cityCountry']}" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="submit-container">
+                            <button type="submit" class="submit-button">Submit</button>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-contact-us',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  templateUrl: './contact-us.component.html',
+  styleUrls: ['./contact-us.component.css']
+})
+
+export class ContactUsComponent implements OnInit {
+  contactusForm!: FormGroup;
+  formErrorMessages: { [key: string]: string } = {};
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.contactusForm = new FormGroup({
+      fullName: new FormControl('', [Validators.required, this.noNumbersValidator]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]),
+      cityCountry: new FormControl('', [Validators.required, this.noNumbersValidator]),
+      message: new FormControl('', [Validators.required])
+    });
+  }
+
+  noNumbersValidator(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value && /\d/.test(value)) {
+      return { 'containsNumber': true };
+    }
+    return null;
+  }
+
+  emailValidator(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value && /\d/.test(value)) {
+      return { 'containsNumber': true };
+    }
+    return null;
+  }
+
+  onSubmit(): void {
+    this.formErrorMessages = {}
+    if (this.contactusForm.valid) {
+      console.log(this.contactusForm.value);
+    } else {
+      if (this.contactusForm.get('fullName')?.hasError('required')) {
+        this.formErrorMessages['fullName'] = 'Full Name is required';
+      }
+      if (this.contactusForm.get('fullName')?.hasError('containsNumber')) {
+        this.formErrorMessages['fullName'] = 'Full Name cannot contain numbers';
+      }
+      if (this.contactusForm.get('email')?.hasError('required')) {
+        this.formErrorMessages['email'] = 'Email ID is required';
+      } else if (this.contactusForm.get('email')?.hasError('email')) {
+        this.formErrorMessages['email'] = 'Please enter a valid email address';
+      } else if (this.contactusForm.get('email')?.hasError('containsNumber')) {
+        this.formErrorMessages['email'] = 'Email cannot contain numbers';
+      }
+      if (this.contactusForm.get('phone')?.hasError('required')) {
+        this.formErrorMessages['phone'] = 'Phone number is required';
+      } else if (this.contactusForm.get('phone')?.hasError('pattern')) {
+        this.formErrorMessages['phone'] = 'Please enter a valid phone number';
+      }
+      if (this.contactusForm.get('cityCountry')?.hasError('required')) {
+        this.formErrorMessages['cityCountry'] = 'City, Country is required';
+      } else if (this.contactusForm.get('cityCountry')?.hasError('containsNumber')) {
+        this.formErrorMessages['cityCountry'] = 'City, Country cannot contain numbers';
+      }
+      if (this.contactusForm.get('message')?.hasError('required')) {
+        this.formErrorMessages['message'] = 'Message is required';
+      }
+    }
+  }
+}
+.contact-section{
+    background-color: #125d5f;
+  }
+  
+  .container {
+    width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #125d5f;
+    border-radius: 5px;
+    color: aliceblue;
+    height: 420px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em; 
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+      color: rgb(94, 83, 83);
+  }
+  
+  .error-placeholder::placeholder {
+      color: red; 
+  }
+  
+  textarea {
+    height: 100px;
+  }
+  
+  .phone-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .country-code {
+    margin-right: 10px;
+  }
+  
+  .phone-number {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  
+  /* input::placeholder, textarea::placeholder {
+    color: #585252; 
+    opacity: 1; 
+  } */
+  
+  .submit-button {
+    width: 100%;
+    max-width: 200px; 
+    height: 40px; 
+    font-size: 15px; 
+    background-color: #1dc7be;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 1rem;
+    margin-top: 10px;
+  }
+  
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+  }
+  
+  .submit-button:hover {
+    background-color: #06a18d;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1px;
+  }
+  
+  .submit-button:hover {
+    background-color: #06a18d;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+    .submit-button {
+      height: 45px; 
+  }
+  .container{
+    background-color:#125d5f;
+    height: 640px;
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+        width: 80%;
+    }
+    .submit-button {
+      font-size: 14px;
+  }
+  }
+  }
+
+
+  <div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Contact Us</h2>
+                <p class="justify-content-center d-flex">
+                    Please contact us if your questions are not answered in the FAQ section or you would like to be added to our mailing list.
+                </p>
+                <form [formGroup]="contactusForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-6">  
+                            <div class="form-group">
+                                <label for="fullName" [ngClass]="{'error-label': submitted && contactusForm.get('fullName')?.invalid}">
+                                    Full Name 
+                                    <span *ngIf="submitted && contactusForm.get('fullName')?.hasError('containsNumber')" class="error-message"> - Cannot contain numbers</span>
+                                    <span *ngIf="submitted && contactusForm.get('fullName')?.hasError('required')" class="error-message"> - Required</span>
+                                </label>
+                                <input type="text" class="form-control" id="fullName" 
+                                       formControlName="fullName" 
+                                       [placeholder]="'Enter your full name'" 
+                                       [ngClass]="{'error-placeholder': submitted && contactusForm.get('fullName')?.invalid}" 
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" [ngClass]="{'error-label': submitted && contactusForm.get('email')?.invalid}">
+                                    Email ID 
+                                    <span *ngIf="submitted && contactusForm.get('email')?.hasError('required')" class="error-message"> - Required</span>
+                                    <span *ngIf="submitted && contactusForm.get('email')?.hasError('email')" class="error-message"> - Invalid email</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" 
+                                       formControlName="email" 
+                                       [placeholder]="'Enter your email'" 
+                                       [ngClass]="{'error-placeholder': submitted && contactusForm.get('email')?.invalid}" 
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" [ngClass]="{'error-label': submitted && contactusForm.get('phone')?.invalid}">
+                                    Phone 
+                                    <span *ngIf="submitted && contactusForm.get('phone')?.hasError('required')" class="error-message"> - Required</span>
+                                    <span *ngIf="submitted && contactusForm.get('phone')?.hasError('pattern')" class="error-message"> - Invalid number</span>
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="phone-addon">+91</span>
+                                    </div>
+                                    <input type="tel" class="form-control" id="phone" 
+                                           formControlName="phone" 
+                                           aria-describedby="phone-addon" 
+                                           [placeholder]="'Enter your phone number'" 
+                                           [ngClass]="{'error-placeholder': submitted && contactusForm.get('phone')?.invalid}" 
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="message" [ngClass]="{'error-label': submitted && contactusForm.get('message')?.invalid}">
+                                    Message 
+                                    <span *ngIf="submitted && contactusForm.get('message')?.hasError('required')" class="error-message"> - Required</span>
+                                </label>
+                                <textarea class="form-control" id="message" 
+                                          formControlName="message" 
+                                          [placeholder]="'Enter your message'" 
+                                          [ngClass]="{'error-placeholder': submitted && contactusForm.get('message')?.invalid}" 
+                                          required style="height: 107px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="cityCountry" [ngClass]="{'error-label': submitted && contactusForm.get('cityCountry')?.invalid}">
+                                    City, Country 
+                                    <span *ngIf="submitted && contactusForm.get('cityCountry')?.hasError('containsNumber')" class="error-message"> - Cannot contain numbers</span>
+                                    <span *ngIf="submitted && contactusForm.get('cityCountry')?.hasError('required')" class="error-message"> - Required</span>
+                                </label>
+                                <input type="text" class="form-control" id="cityCountry" 
+                                       formControlName="cityCountry" 
+                                       [placeholder]="'Enter your city, country'" 
+                                       [ngClass]="{'error-placeholder': submitted && contactusForm.get('cityCountry')?.invalid}" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="submit-container">
+                            <button type="submit" class="submit-button" [disabled]="contactusForm.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-contact-us',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  templateUrl: './contact-us.component.html',
+  styleUrls: ['./contact-us.component.css']
+})
+export class ContactUsComponent implements OnInit {
+  contactusForm!: FormGroup;
+  submitted = false;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.contactusForm = new FormGroup({
+      fullName: new FormControl('', [Validators.required, this.noNumbersValidator]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]),
+      cityCountry: new FormControl('', [Validators.required, this.noNumbersValidator]),
+      message: new FormControl('', [Validators.required])
+    });
+  }
+
+  noNumbersValidator(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value && /\d/.test(value)) {
+      return { 'containsNumber': true };
+    }
+    return null;
+  }
+
+  onSubmit(): void {
+    this.submitted = true; 
+    if (this.contactusForm.valid) {
+      console.log(this.contactusForm.value);
+    }
+  }
+}
+
+.contact-section{
+  background-color: #125d5f;
+}
+
+.container {
+  width: 100%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #125d5f;
+  border-radius: 5px;
+  color: aliceblue;
+  height: 420px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+.error-label {
+  color: red;
+}
+
+.error-placeholder::placeholder {
+  color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-left: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.25em; 
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgb(94, 83, 83);
+}
+
+.error-placeholder::placeholder {
+    color: red; 
+}
+
+textarea {
+  height: 100px;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.country-code {
+  margin-right: 10px;
+}
+
+.phone-number {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+/* input::placeholder, textarea::placeholder {
+  color: #585252; 
+  opacity: 1; 
+} */
+
+.submit-button {
+  width: 100%;
+  max-width: 200px; 
+  height: 40px; 
+  font-size: 15px; 
+  background-color: #1dc7be;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 1rem;
+  margin-top: 10px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+}
+
+.submit-button:hover {
+  background-color: #06a18d;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1px;
+}
+.error-indicator {
+  color: red;
+  font-size: 1em;
+  margin-left: 5px;
+}
+
+.submit-button:hover {
+  background-color: #06a18d;
+}
+
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+  }
+  .submit-button {
+    height: 45px; 
+}
+.container{
+  background-color:#125d5f;
+  height: 640px;
+}
+
+@media (max-width: 480px) {
+  .container {
+      width: 80%;
+  }
+  .submit-button {
+    font-size: 14px;
+}
+.container{
+  background-color:#125d5f;
+  height: 690px;
+}
+}
+} -->
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+interface DropdownItem {
+  item_id: number;
+  item_text: string;
+  disabled?: boolean; // Optional property to indicate if the option is disabled
+}
+
+@Component({
+  selector: 'app-form-card',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, NgSelectModule],
+  templateUrl: './form-card.component.html',
+  styleUrls: ['./form-card.component.css']
+})
+export class FormCardComponent implements OnInit {
+  cards: FormGroup[] = [];
+  submittedCards: any[] = [];
+  dropdownList: DropdownItem[] = [];
+  selectedItems: any[] = [];
+  fileNames: string[] = [];
+  filePreviews: string[] = [];  
+  editingIndex: number | null = null; 
+  duplicateSubmissionError: boolean = false; 
+
+  constructor(private fb: FormBuilder) {  
+    this.addCard();  
+  }
+
+  // Dropdownlist Initializer 
+  ngOnInit() {
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Option 1' },
+      { item_id: 2, item_text: 'Option 2' },
+      { item_id: 3, item_text: 'Option 3' }
+    ];
+  }
+
+  // Dropdown Compare 
+  compareWith(item1: DropdownItem, item2: DropdownItem): boolean {
+    return item1 && item2 ? item1.item_id === item2.item_id : item1 === item2;
+  }
+
+  onItemSelect(item: any, index: number) {
+    this.selectedItems[index] = item;
+    const selectedItemIds = this.selectedItems[index].map((i: { item_id: any; }) => i.item_id);
+    this.cards[index].get('dropdown')?.setValue(selectedItemIds);
+    this.duplicateSubmissionError = false; // Reset duplicate submission error
+    this.cards[index].get('dropdown')?.markAsUntouched(); // Clear the touched state if needed
+  }
+
+  // Form Validators 
+  createCardForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required, this.uniqueNameValidator(this.submittedCards), this.nonumber(this.submittedCards)]],
+      dropdown: [[], Validators.required],
+      date: ['', Validators.required],
+    });
+  }
+
+  // Custom validator to check if the name contains --number-- in the submitted cards
+  nonumber(_submittedCards: any[]): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null; 
+      }
+      const hasNumber = /\d/.test(control.value);
+      return hasNumber ? { hasNumber: true } : null;
+    };
+  }
+  
+  // Custom validator to check if the --name-- already exists
+  uniqueNameValidator(submittedCards: any[]): any {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const nameExists = submittedCards.some(card => card.name === control.value);
+      return nameExists ? { nameTaken: true } : null;
+    };
+  }
+
+  // Main card
+  addCard() {
+    const newCard = this.createCardForm();
+    this.cards.push(newCard);
+    this.selectedItems.push([]); 
+    this.fileNames.push('');
+    this.filePreviews.push('');  
+  }
+
+  deleteCard(index: number) {
+    if (index === 0) {
+      return; // Main card can't be deleted
+    }
+    this.cards.splice(index, 1);
+    this.selectedItems.splice(index, 1);  
+    this.fileNames.splice(index, 1); 
+    this.filePreviews.splice(index, 1);
+  }
+
+  handleFileInput(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      // Check if the file name already exists in submitted cards
+      const fileNameExists = this.submittedCards.some(card => card.uploadfile === file.name);
+      if (fileNameExists) {
+        alert('This file has already been uploaded. Please choose a different file.');
+        event.target.value = ''; // Clear the input
+        return;
+      }
+      this .fileNames[index] = file.name;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.filePreviews[index] = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Generate available options dynamically for each card
+  getAvailableOptionsForCard(_cardIndex: number): DropdownItem[] {
+    const selectedOptions = new Set<string>();
+
+    // Add already selected options from other submitted cards to the set
+    this.submittedCards.forEach(card => {
+      card.dropdown.forEach((option: string) => {
+        selectedOptions.add(option);
+      });
+    });
+
+    // Now create the dropdown list with disabled options based on the selected options
+    return this.dropdownList.map(option => ({
+      item_id: option.item_id,
+      item_text: option.item_text,
+      disabled: selectedOptions.has(option.item_text) // Mark as disabled if already selected
+    }));
+  }
+
+  isImageFile(fileName: string): boolean {
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+    return ['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension ?? '');
+  }
+
+  submit(index: number) {
+    // Manually mark all controls as touched to trigger validation
+    const controls = this.cards[index].controls;
+    for (const control in controls) {
+      if (controls.hasOwnProperty(control)) {
+        controls[control].markAsTouched();
+      }
+    }
+
+    // Check if the dropdown is empty
+    if (this.cards[index].get('dropdown')?.invalid) {
+      return; // Prevent submission if dropdown is invalid
+    }
+
+    // If the form is valid and the dropdown is valid, check for duplicate submission
+    if (this.cards[index].valid && !this.cards[index].get('name')?.hasError('nameTaken')) {
+      const cardValue = this.cards[index].value;
+      const dropdownTexts = cardValue.dropdown.map((id: number) => {
+        return this.dropdownList.find(item => item.item_id === id)?.item_text;
+      });
+
+      // Check for duplicates in selected dropdown values
+      const hasDuplicates = new Set(dropdownTexts).size !== dropdownTexts.length;
+      if (hasDuplicates) {
+        alert('Duplicate dropdown selections are not allowed. Please select unique options.');
+        return; // Prevent submission
+      }
+
+      // Check if the selected dropdown options already exist in submittedCards
+      const alreadySubmitted = this.submittedCards.some(card => {
+        const submittedDropdowns = card.dropdown;
+        return submittedDropdowns.length === dropdownTexts.length && 
+               submittedDropdowns.every((text: any) => dropdownTexts.includes(text));
+      });
+
+      // Check across all cards if any dropdown value is repeated
+      const allDropdowns = this.submittedCards.flatMap(card => card.dropdown);
+      const hasCommonValues = dropdownTexts.some((value: any) => allDropdowns.includes(value));
+
+      if (hasCommonValues) {
+        this.duplicateSubmissionError = true; // Set the error flag
+        return; // Prevent submission
+      } else {
+        this.duplicateSubmissionError = false; // Reset the error flag if no duplicates
+      }
+
+      // Handle card update or addition
+      if (this.editingIndex !== null) {
+        this.submittedCards[this.editingIndex] = {
+          name: cardValue.name,
+          dropdown: dropdownTexts,
+          date: cardValue.date,
+          uploadfile: this.fileNames[index] || 'No file uploaded',
+          filePreview: this.filePreviews[index] || '',
+        };
+        this.editingIndex = null;
+      } else {
+        this.submittedCards.push({
+          name: cardValue.name,
+          dropdown: dropdownTexts,
+          date: cardValue.date,
+          uploadfile: this.fileNames[index] || 'No file uploaded',
+          filePreview: this.filePreviews[index] || ''
+        });
+      }
+
+      // Reset the form after submission
+      this.cards[index].reset({
+        name: '',
+        dropdown: [],
+        date: ''
+      });
+
+      this.selectedItems[index] = [];
+      this.fileNames[index] = ''; 
+      this.filePreviews[index] = '';
+
+      const fileInput = document.querySelector(`input[type="file"][data-index="${index}"]`) as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = '';
+      }
+    }
+  }
+
+  editSelectedCard(index: number) {
+    const cardToEdit = this.submittedCards[index];
+    this.editingIndex = index;
+
+    // Set the selected items based on the dropdown values from the submitted card
+    this.selectedItems[0] = cardToEdit.dropdown.map((itemText: string) => {
+      return this.dropdownList.find(item => item.item_text === itemText);
+    }).filter((item: undefined) => item !== undefined);
+
+    this.cards[0].patchValue({
+      name: cardToEdit.name,
+      dropdown: this.selectedItems[0].map((item: { item_id: any; }) => item.item_id),
+      date: cardToEdit.date
+    });
+
+    this.fileNames[0] = cardToEdit.uploadfile || '';
+    this.filePreviews[0] = cardToEdit.filePreview || '';
+  }
+
+  deleteSelectedCard(index: number) {
+    this.submittedCards.splice(index, 1);
+  }
+}

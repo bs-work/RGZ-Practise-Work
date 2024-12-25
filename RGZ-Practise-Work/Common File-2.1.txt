@@ -1,0 +1,207 @@
+--------For Incrse Memory Before Start Angular Project--------
+SET NODE_OPTIONS=--max_old_space_size=8048
+---------Start project--------
+ng serve -o --port 4205
+
+-----------Reload Window in Angular----------
+ctrl + shift + p
+
+1236547896
+
+--------Build Project--------
+1.Run CMD
+2.ng build --prod
+3.Build Create on Dist Folder in GUI Project
+
+Good Evening
+Hiten agravat
+Worked On : Check Thrifty Car Rental, Jordan and rentguruz.online website page url chnages
+
+Good Morning..
+Hiten agravat
+Working on: Check Thrifty Car Rental, Jordan
+
+--------API Login--------
+{
+  "Email": "user@example.com",
+  "Password": "string",
+  "APIRequestType": 1,
+  "CompanyId": 0
+}
+
+{
+  "Email": "nk@siimbaz.com",
+  "Password": "nkSuper@1212",
+  "APIRequestType": 1,
+  "CompanyId": 1
+}
+--------UT For Auth In Api--------
+PYOtYmuTsLQ=
+
+Good Evening
+Hiten Agravat
+
+Worked On:
+SAX ( Insurance add)
+Demo QA : Tickets Create : 5
+                  Closed : 1
+Rent2You ( Customer driving lincence add)
+GoRental Changes
+Training Manual
+
+
+Edison
+
+Name: Hiten Agravat
+Email: hiten@rentugruz.com
+--------Wifi Pass--------
+RentGuruz@1212 (RentGuruz)  
+RentGuruz@01 (RentGuruzOffice)  
+704295888(ISK)
+
+nkSuper@1212
+RGZV2@1212
+
+flexiicar
+-
+this is a place holder. this is a place holder.. this is a place holder.. this is a place holder.. this is a place holder.. this is a place holder.
+
+
+-------- Server Id Password --------
+VPN
+Name - Us
+Peer - 92.204.240.83
+Florida State Sales Tax
+
+joining date : 26/7/2022
+contact number : 8866995159
+Name : Parshbhai j. Agravat
+
+Server  
+Id  :- dev_7
+pas :- y4WZ41yqsa!2
+    `
+Id  :- dev_6(Saraddha)
+pas :- sm9FWnaQTk5y7L2h
+
+Id  :- dev_9(Smith)
+pas :- *}UsbpX^8~Mjc
+
+Id  :- dev_2(Dhaval)
+pas :- LSwgyTKXM7q54VYV
+
+Id  :- dev_5(Hiten)
+42C5Y;$rB:B+{%
+pas :- 6LnFJVBqZufLHfSW
+
+Id  :- qa_1(Hiten)
+pas :- xzBYE2WNdNc7L6Tz
+
+Id  :- qa_1(Hiten)
+pas :- xzBYE2WNdNc7L6Tz
+
+Publish Request For rentguruz.online
+
+Path : C:\Users\dev_5\Desktop\RGZ_Website
+
+--------------------------------
+html build
+C:\Developers\dev5\Development\CMS Publish\CMS_GOCARRENTAL
+js build
+C:\Developers\dev5\Development\New_CMS_Websites\V2_jsMaster\V2_Gocarrental_Master
+
+mycar
+
+R33RQFLQ
+HL0DC0OM0
+WLU8DWOH
+VJ4SSQUL
+S60YEVET
+S60YEVET
+4ISWN933
+NPQX0NA1
+NPKJTPM9
+GJ0VU26W
+7B3KA4KL
+02HHVSYG
+DYP4XBWB
+
+Good Evening...
+Hiten Agravat...
+Worked On: Check QA  
+
+-------- For Report Property --------
+1.Select Section
+2.Key - F4
+
+Activity Logs
+Inventory
+GPS Tracking
+Vehicle Management => Vehicles Maintence 
+                      Vehicles Certifications
+                      Vehicles NRM
+
+
+------------------------------------------------------------------------------------------------
+Good Evening
+Prayag Timbaliya
+------------------------
+Worked On : JIra Ticket
+Complate Ticket : 2
+Remaining Ticket : 24
+
+Good Morning
+Working On : Jira Ticket (Luxe Review Backend Changes)
+To do Tickets : 14
+will be completed : Tommorow
+
+Good Evening
+Prayag Timbaliya
+Working On : Jira Tickets
+Complate Tickets : 11
+Remainaning Tickets : 4
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+
+
+
+Password
+
+
+
+
+Skype
+PRentguruz@2023
+
+
+Zoho Mail
+Prayag@rentguruz.com
+Prayag@2022
+
+
+
+GitHub
+Email :- Prayag@rentguruz.com
+UserName :- Prayag2022
+password:- PRentguruz@2023
+
+
+
+
+remote login detail
+UserId :- dev_7
+Password :- y4WZ41yqsa!2
+
+
+
+Atlassian account
+Id : prayag@rentguruz.com
+pass : Prayag@2023
+
+
+microsoft account
+Id : prayag@rentguruz.com
+pass : Prayag@1999

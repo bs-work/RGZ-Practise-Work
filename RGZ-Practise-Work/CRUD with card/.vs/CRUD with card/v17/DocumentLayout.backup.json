@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\My files\\CRUD with card\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|d:\\my files\\crud with card\\crud with card\\controllers\\locationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|solutionrelative:crud with card\\controllers\\locationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|d:\\my files\\crud with card\\crud with card\\model\\locationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|solutionrelative:crud with card\\model\\locationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|d:\\my files\\crud with card\\crud with card\\controllers\\cardlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|solutionrelative:crud with card\\controllers\\cardlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|d:\\my files\\crud with card\\crud with card\\controllers\\locationlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|solutionrelative:crud with card\\controllers\\locationlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|d:\\my files\\crud with card\\crud with card\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D373AF4C-F25D-4347-88D7-6BE3DDC86439}|CRUD with card\\CRUD with card.csproj|solutionrelative:crud with card\\controllers\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocationModel.cs",
+              "DocumentMoniker": "D:\\My files\\CRUD with card\\CRUD with card\\Model\\LocationModel.cs",
+              "RelativeDocumentMoniker": "CRUD with card\\Model\\LocationModel.cs",
+              "ToolTip": "D:\\My files\\CRUD with card\\CRUD with card\\Model\\LocationModel.cs",
+              "RelativeToolTip": "CRUD with card\\Model\\LocationModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwBsAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T09:41:16.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LocationController.cs",
+              "DocumentMoniker": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\LocationController.cs",
+              "RelativeDocumentMoniker": "CRUD with card\\Controllers\\LocationController.cs",
+              "ToolTip": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\LocationController.cs",
+              "RelativeToolTip": "CRUD with card\\Controllers\\LocationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-23T06:16:12.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LocationLayer.cs",
+              "DocumentMoniker": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\LocationLayer.cs",
+              "RelativeDocumentMoniker": "CRUD with card\\Controllers\\LocationLayer.cs",
+              "ToolTip": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\LocationLayer.cs",
+              "RelativeToolTip": "CRUD with card\\Controllers\\LocationLayer.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAqwDkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T06:48:54.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CardController.cs",
+              "DocumentMoniker": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\CardController.cs",
+              "RelativeDocumentMoniker": "CRUD with card\\Controllers\\CardController.cs",
+              "ToolTip": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\CardController.cs",
+              "RelativeToolTip": "CRUD with card\\Controllers\\CardController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T06:05:23.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CardLayer.cs",
+              "DocumentMoniker": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\CardLayer.cs",
+              "RelativeDocumentMoniker": "CRUD with card\\Controllers\\CardLayer.cs",
+              "ToolTip": "D:\\My files\\CRUD with card\\CRUD with card\\Controllers\\CardLayer.cs",
+              "RelativeToolTip": "CRUD with card\\Controllers\\CardLayer.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwCcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T06:02:54.115Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

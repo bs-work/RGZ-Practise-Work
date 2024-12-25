@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "LoginRegistrationApp.Controllers.RegistrationController",
+    "Method": "Login",
+    "RelativePath": "api/Registration/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "LoginRegistrationApp.Models.Login",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoginRegistrationApp.Controllers.RegistrationController",
+    "Method": "Registration",
+    "RelativePath": "api/Registration/registration",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registration",
+        "Type": "LoginRegistrationApp.Models.Registration",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LoginRegistrationApp.Controllers.RegistrationController",
+    "Method": "TestConnection",
+    "RelativePath": "api/Registration/test-connection",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

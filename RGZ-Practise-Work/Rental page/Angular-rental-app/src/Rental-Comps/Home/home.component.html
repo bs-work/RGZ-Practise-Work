@@ -1,0 +1,242 @@
+<div class="main-all-content">
+    <!-- Navbar -->
+<div class="behind-nav">
+    <div class="container Navbar">
+        <div class="d-flex py-2 justify-content-between">
+            <div class="px-0 d-flex justify-content-start style:width:12% ">
+                <a href="/home"><img src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/2660/Carz360.png"
+                        class="nav-image"></a>
+            </div>
+            <div class="my-auto"><a routerlink="/home" href="/home">
+                    <span>Home</span></a></div>
+            <div class="my-auto"><a routerlink="/about us" href="/about us">
+                    <span>About Us</span></a></div>
+            <div class="my-auto"><a routerlink="/fleetmenu" href="/fleetmenu">
+                    <span>Fleet Menu</span></a></div>
+            <div class="my-auto"><a routerlink="/faq" href="/faq">
+                    <span>FAQ</span></a></div>
+            <div class="my-auto"><a routerlink="/career" href="/career">
+                    <span>Career</span></a></div>
+            <div class="my-auto"><a routerlink="/contact us" href="/contact us">
+                    <span>Contact Us</span></a></div>
+            <div class="my-auto conumber"><a>
+                    <span>(333)1234533</span></a></div>
+        </div>
+    </div>
+</div> 
+<!-- image Section -->
+ <section class="top-image-sec">
+    <div class="top-sec col-md-12">
+ <div class="row">
+    <div class="main-img position-relative">
+        <img src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="home-img img-fluid" alt="Responsive image">
+        <!--booking card head -->
+        <div class="container position-absolute top-50 end-0 translate-middle-y py-md-3 text-center mx-1">
+            <!-- Main header -->
+            <div class="mb-4 top-card" style="opacity: 1;">
+                <h1 class="mb-md-3 mb-2 text-danger">Cooper Auto Rental</h1>
+                <h5>
+                    <p class="text-danger">Super Rental Company in</p>
+                    <p><strong class="text-danger">{{ pickupLocation }}</strong></p> 
+                    <!-- <app-booking-card (locationChange)="onLocationChange($event)"></app-booking-card> -->
+                </h5>
+            </div>
+               <!-- Booking card  -->
+            <!-- <app-booking-card (bookingDetails)="onBookingDetailsUpdated($event)"></app-booking-card>
+            <app-book-button (bookNow)="onBookNow()"></app-book-button> -->
+            <app-booking-card #bookingCard (detailsUpdated)="onBookingDetailsUpdated($event)"></app-booking-card>
+            <app-book-button (click)="bookNow(bookingCard)">Book Now</app-book-button>
+              <!-- <form novalidate class="form col-md-4 mx-auto">
+                <div class="card bg-secondary mt-3" style="width:100%;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pickupLocation">{{ pickupLocationLabel }}</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="pickupLocation" 
+                                        placeholder="Enter Pickup Location" 
+                                        (input)="onPickupLocationChange($event)">
+                                </div>                               
+                                <div class="form-group">
+                                    <label for="pickupDate">Pickup Date</label>
+                                    <input type="date" class="form-control" id="pickupDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pickupTime">Pickup Time</label>
+                                    <input type="time" class="form-control" id="pickupTime">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="dropoffLocation">{{ dropoffLocationLabel }}</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="dropoffLocation" 
+                                        placeholder="Enter Drop Off Location" 
+                                        [(ngModel)]="dropoffLocation" 
+                                        (input)="onDropoffLocationChange($event)" 
+                                        [ngModelOptions]="{ standalone: true }">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropoffDate">{{ dropoffDateLabel }}</label>
+                                    <input 
+                                      type="date" 
+                                      class="form-control" 
+                                      id="dropoffDate" 
+                                      [(ngModel)]="dropoffDate" 
+                                      (input)="onDropoffDateChange($event)" 
+                                      [ngModelOptions]="{ standalone: true }">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="dropoffTime">{{ dropoffTimeLabel }}</label>
+                                    <input 
+                                      type="time" 
+                                      class="form-control" 
+                                      id="dropoffTime" 
+                                      [(ngModel)]="dropoffTime" 
+                                      (input)="onDropoffTimeChange($event)" 
+                                      [ngModelOptions]="{ standalone: true }">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <select class="form-control" id="age">
+                                        <option value="">Select Age</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="promoCode">Promo Code</label>
+                                    <input type="text" class="form-control" id="promoCode" placeholder="Enter Promocode">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+                    </div>
+                </div>
+            </form>  -->
+        </div>
+    </div>
+ </div>
+</div>
+</section> 
+<!-- Mobile platform  -->
+<section class="section-3">
+    <div class="container my-5 my-4">
+            <div class="row m-0 px-md-4 mt-md-0 mt-3" style="z-index: 0 !important;">
+                <div class="col-md-6 col-12 d-flex px-md-3 px-0 mb-md-0 mb-3">
+                    <div class="d-flex m-0 w-100 my-auto justify-content-center">
+                        <div class="d-flex flex-column" style="position: relative;">
+                            <div class="pad-frame"><img alt=""height="100%" width="100%" class="border_radius"src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/29934/image_2024_08_14T10_35_00.png">
+                            </div>
+                            <div style="position: relative; z-index: 0 !important;">
+                                <div class="smallmobile-frame"><img alt=""
+                                        height="100%" width="100%" class="border_radius"
+                                        src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/29934/image_2024_08_14T10_35_16_418Z.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex" style="position: relative;">
+                            <div class="mobile-frame"><img alt=""
+                                    height="100%" width="100%" class="border_radius"
+                                    src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/29934/image_2024_08_14T10_35_09_570.png">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column justify-content-end"
+                            style="position: relative;">
+                            <div class="tablate-frame"><img alt=""
+                                    height="100%" width="100%" class="border_radius"
+                                    src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/29934/image_2024_08_14T10_34_40_701Z.png">
+                            </div>
+                            <div class="ipad-frame"><img alt=""
+                                    height="100%" width="100%" class="border_radius"
+                                    src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/29934/image_2024_08_14T10_36_08_039Z.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 pl-md-5 px-0">
+                    <div class="d-flex flex-column w-100 h-100">
+                        <div class="row m-0 mb-3">
+                            <div class="headding-border"><span>MOBILE PLATFORM</span></div>
+                        </div>
+                        <div class="row m-0 mb-3">
+                            <h3 class="mb-0">COOPER MOBILE APP</h3>
+                        </div>
+                        <div class="row flex-row m-0 mb-3"><a
+                                target="_blank" _blank="" href="none">
+                                <button class="mat-focus-indicator logo-img mr-3 mat-button mat-button-base"><span class="mat-button-wrapper">
+                                    <img src="" alt="" height="100%" width="100%"></span>
+                                </button></a><a target="_blank" href="none">
+                                    <button mat-button="" class="mat-focus-indicator logo-img mat-button mat-button-base"><span class="mat-button-wrapper">
+                                    <img src="" alt="" height="100%" width="100%"></span>
+                                </button></a></div>
+                        <div class="row flex-column m-0 details">
+                            <p>Unlock seamless booking with our mobile app! Tap into effortless reservations with
+                                Thrifty Car Rental. Say goodbye to hassle, hello to convenience. Download now and enjoy:
+                            </p>
+                            <p><br></p>
+                            <p>Real-time updates</p>
+                            <p>Lightning-fast booking</p>
+                            <p>Easy access wherever you go</p>
+                        </div>
+                        <div class="row flex-row m-0 mt-auto justify-content-between justify-content-md-start"><a target="_blank" href="none">
+                            <button mat-button="" class="mat-focus-indicator Appimg mr-md-3 mat-button mat-button-base"><span class="mat-button-wrapper">
+                                <img src="" alt="" height="100%" width="100%"></span>
+                                </button></a>
+                                <a target="_blank" href="none"><button mat-button=""class="mat-focus-indicator Appimg mat-button mat-button-base">
+                                    <span class="mat-button-wrapper">
+                                        <img src=""alt="" height="100%" width="100%">
+                                    </span>
+                                </button></a></div>
+                    </div>
+                </div>
+            </div>
+       </div>
+</section>
+<!-- Ev Rental Section -->
+<!-- <section class="section-4">
+    <div class="main-ev-section">
+        <div class="col-12 justify-content-center d-flex align-items-end">
+     <div class="row ev-title">
+        <h2>what makes a EV rental the better choice</h2>
+    </div>
+    <div class="col-5 ev-card-main d-flex justify-content-end align-items-center">
+    <div class="row ev-cards">
+    <div class="card-1">
+     <div class="card-bg">
+     <div class="image-card-1">
+        <img src="https://api.rentguruz.online/Uploads/86/Company/CMSFiles/2656/shutterstock_1053530408copy.jpg" alt="...">
+            </div>
+        </div>
+    </div>
+         </div>
+    </div>
+     </div>
+    </div>
+</section>
+</div> -->
+
+<app-contact-us></app-contact-us>
+<app-form-card></app-form-card>

@@ -1,0 +1,202 @@
+no i mean on new card it's option it getting update and edit but it's should be on edit
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Card <b>Details</b></h2></div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Dropdown </th>
+                        <th>Upload File</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Administration</td>
+                        <td></td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Peter Parker</td>
+                        <td>Customer Service</td>
+                        <td></td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fran Wilson</td>
+                        <td>Human Resources</td>
+                        <td></td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>      
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>     
+
+
+<!-- import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+@Component({
+  selector: 'app-form-card',
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, NgSelectModule],
+  templateUrl: './form-card.component.html',
+  styleUrls: ['./form-card.component.css']
+})
+
+export class FormCardComponent implements OnInit {
+    ngOnInit(): void {
+        throw new Error('Method not implemented.');
+    } 
+    
+    // Edit a selected card
+
+    editSelectedCard(index: number) {
+          const cardToEdit = this.submittedCards[index];
+          this.editingIndex = index;
+      
+          this.selectedItems[0] = cardToEdit.dropdown.map((itemText: string) => {
+            return this.dropdownList.find(item => item.item_text === itemText);
+          }).filter((item: undefined) => item !== undefined);
+      
+          this.cards[0].patchValue({
+            name: cardToEdit.name,
+            dropdown: this.selectedItems[0].map((item: { item_id: any; }) => item.item_id),
+            date: cardToEdit.date
+          });
+      
+          this.fileNames[0] = cardToEdit.uploadfile || '';
+          this.filePreviews[0] = cardToEdit.filePreview || '';
+        }
+      
+        // Delete a selected card from the submitted cards list
+        deleteSelectedCard(index: number) {
+          this.submittedCards.splice(index, 1);
+        }
+      }
+      
+      $(document).ready(function(){
+      	$('[data-toggle="tooltip"]').tooltip();
+      	var actions = $("table td:last-child").html();
+      	// Append table with add row form on add new button click
+          $(".add-new").click(function(){
+      		$(this).attr("disabled", "disabled");
+      		var index = $("table tbody tr:last-child").index();
+              var row = '<tr>' +
+                  '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+                  '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+                  '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+      			'<td>' + actions + '</td>' +
+              '</tr>';
+          	$("table").append(row);		
+      		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $('[data-toggle="tooltip"]').tooltip();
+          });
+      	// Add row on add button click
+      	$(document).on("click", ".add", function(){
+      		var empty = false;
+      		var input = $(this).parents("tr").find('input[type="text"]');
+              input.each(function(){
+      			if(!$(this).val()){
+      				$(this).addClass("error");
+      				empty = true;
+      			} else{
+                      $(this).removeClass("error");
+                  }
+      		});
+      		$(this).parents("tr").find(".error").first().focus();
+      		if(!empty){
+      			input.each(function(){
+      				$(this).parent("td").html($(this).val());
+      			});			
+      			$(this).parents("tr").find(".add, .edit").toggle();
+      			$(".add-new").removeAttr("disabled");
+      		}		
+          });
+      	// Edit row on edit button click
+      	$(document).on("click", ".edit", function(){		
+              $(this).parents("tr").find("td:not(:last-child)").each(function(){
+      			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+      		});		
+      		$(this).parents("tr").find(".add, .edit").toggle();
+      		$(".add-new").attr("disabled", "disabled");
+          });
+      	// Delete row on delete button click
+      	$(document).on("click", ".delete", function(){
+              $(this).parents("tr").remove();
+      		$(".add-new").removeAttr("disabled");
+          });
+      });
+    }
+
+}
+
+<div class="container-lg"> 
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-8"><h2>Card <b>Details</b></h2></div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-info" (click)="addCard()"><i class="fa fa-plus"></i> Add New</button>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Dropdown</th>
+                <th>Upload File</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="cards">
+              <tr *ngFor="let card of cards.controls; let i = index" [formGroupName]="i">
+                <td><input formControlName="name" class="form-control" /></td>
+                <td>
+                  <ng-select formControlName="dropdown" [items]="dropdownList" bindLabel="item_text" bindValue="item_id"></ng-select>
+                </td>
+                <td><input formControlName="uploadFile" type="file" class="form-control" /></td>
+                <td>
+                  <button type="button" (click)="editCard(i)">Edit</button>
+                  <button type="button" (click)="deleteCard(i)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>  
+   -->

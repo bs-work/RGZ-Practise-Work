@@ -1,0 +1,103 @@
+<form novalidate class="form col-md-4 mx-auto">
+    <div class="card mt-3" style="width:100%;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pickupLocation">Pick Up Location</label>
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          id="pickupLocation" 
+                          [(ngModel)]="pickupLocation"
+                          (ngModelChange)="updateDetails()" 
+                          name="pickupLocation" 
+                          placeholder="Enter Pickup Location" 
+                          required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickupDate">Pickup Date</label>
+                        <input 
+                          type="date" 
+                          class="form-control" 
+                          id="pickupDate" 
+                          [(ngModel)]="pickupDate"
+                          (ngModelChange)="updateDetails()"
+                          name="pickupDate" 
+                          required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickupTime">Pickup Time</label>
+                        <input 
+                          type="time" 
+                          class="form-control" 
+                          id="pickupTime" 
+                          [(ngModel)]="pickupTime" 
+                          (ngModelChange)="updateDetails()"
+                          name="pickupTime" 
+                          required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dropoffLocation">Drop Off Location</label>
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          id="dropoffLocation" 
+                          [(ngModel)]="dropoffLocation" 
+                          (ngModelChange)="updateDetails()"
+                          name="dropoffLocation" 
+                          placeholder="Enter Drop Off Location" 
+                          required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropoffDate">Drop off Date</label>
+                        <input 
+                          type="date" 
+                          class="form-control" 
+                          id="dropoffDate" 
+                          [(ngModel)]="dropoffDate" 
+                          (ngModelChange)="updateDetails()"
+                          name="dropoffDate" 
+                          required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropoffTime">Drop Off Time</label>
+                        <input 
+                          type="time" 
+                          class="form-control" 
+                          id="dropoffTime" 
+                          [(ngModel)]="dropoffTime" 
+                          (ngModelChange)="updateDetails()"
+                          name="dropoffTime" 
+                          required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <select class="form-control" id="age" [(ngModel)]="age" (ngModelChange)="updateDetails()" name="age" required>
+                            <option value="">Select Age</option>
+                            <option *ngFor="let ageValue of ages" [value]="ageValue">{{ ageValue }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="promoCode">Promo Code</label>
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          id="promoCode" 
+                          [(ngModel)]="promoCode" 
+                          name="promoCode" 
+                          placeholder="Enter Promocode">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

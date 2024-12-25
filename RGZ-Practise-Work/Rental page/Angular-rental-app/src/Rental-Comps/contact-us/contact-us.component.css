@@ -1,0 +1,139 @@
+.contact-section{
+  background-color: #125d5f;
+}
+
+.container {
+  width: 100%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #125d5f;
+  border-radius: 5px;
+  color: aliceblue;
+  height: 420px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.error-label {
+  color: red;
+}
+
+.error-placeholder {
+  border-color: red;
+  background-color: #ffe6e6;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-left: 10px;
+}
+
+.error-indicator {
+  color: red;
+  font-size: 1em;
+  margin-left: 5px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgb(94, 83, 83);
+}
+
+textarea {
+  height: 100px;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.country-code {
+  margin-right: 10px;
+}
+
+.phone-number {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  width: 100%;
+  max-width: 200px; 
+  height: 40px; 
+  font-size: 15px; 
+  background-color: #1dc7be;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 1rem;
+  margin-top: 10px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+}
+
+.submit-button:hover {
+  background-color: #06a18d;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1px;
+}
+
+.submit-button:hover {
+  background-color: #06a18d;
+}
+
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+  }
+  .submit-button {
+    height: 45px; 
+}
+.container{
+  background-color:#125d5f;
+  height: 640px;
+}
+
+@media (max-width: 480px) {
+  .container {
+      width: 80%;
+  }
+  .submit-button {
+    font-size: 14px;
+}
+.container{
+  background-color:#125d5f;
+  height: 690px;
+}
+}
+}

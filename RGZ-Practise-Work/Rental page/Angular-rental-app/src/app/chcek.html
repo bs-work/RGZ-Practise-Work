@@ -1,0 +1,617 @@
+make each and all ng model differntly handled for now it's all in one functionlaity 
+
+<div class="container-lg">
+<div class="table-responsive">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>Location <b>Details</b></h2>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-info add-new" (click)="addNewCard()" [disabled]="isAddNewDisabled || editDisabled">
+            <i class="fa fa-plus"></i> Add New Card
+          </button>
+          <div *ngIf="addCardErrorMessage" class="text-danger">
+            {{ addCardErrorMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Error message -->
+    <div *ngIf="cards.length > 0 && cards[cards.length - 1].errorMessage" class="text-danger">
+      {{ cards[cards.length - 1].errorMessage }}
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>City</th>
+          <th>Address</th> 
+           <th>Zip Code</th> 
+          <th>Postal Code</th> 
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let card of cards; let i = index">
+          <td *ngIf="!card.isEditing">
+            {{ card.name }}
+          </td>
+          <td *ngIf="card.isEditing">
+            <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Pick State" [ngClass]="{'error-placeholder': isNameInvalid(card)}"/>
+          </td>
+          <td *ngIf="!card.isEditing">
+            {{ card.Dropdown }}
+          </td>
+          <td *ngIf="card.isEditing">
+            <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Pick City" [ngClass]="{'error-placeholder': isNameInvalid(card)}"/>
+          </td>
+          <td *ngIf="!card.isEditing">
+          </td>
+          <td *ngIf="card.isEditing">
+            <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Enter Address" [ngClass]="{'error-placeholder': isNameInvalid(card)}"/>
+          </td>
+          <td *ngIf="!card.isEditing">
+            {{ card.UploadFile }}
+          </td>
+          <td *ngIf="card.isEditing">
+            <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Enter Zipcode" [ngClass]="{'error-placeholder': isNameInvalid(card)}"/>
+          </td> 
+           <td>
+              <input type="text" class="form-control" [(ngModel)]="card.name" placeholder="Enter Postalcode" [ngClass]="{'error-placeholder': isNameInvalid(card)}"/>
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="card.isEditing; else normalActions">
+              <div class="d-flex flex-column abtns">
+                <button class="btn btn-success btn-sm subbtn" (click)="saveCard(i)">Submit</button>
+                <button class="btn btn-danger btn-sm delbtn" (click)="deleteCard(i)">Delete</button>
+              </div>
+            </ng-container>
+            <ng-template #normalActions>
+              <button class="btn btn-primary btn-sm" (click)="editCard(i)">Edit</button>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<td *ngIf="card.isEditing">
+  <select class="form-control" [(ngModel)]="card.name" [ngClass]="{'error-placeholder': isStateInvalid(card) && hasAttemptedSave}">
+    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+  </select>
+  <div *ngIf="isStateInvalid(card) && hasAttemptedSave" class="text-danger">
+    Please select a valid state.
+  </div>
+</td>
+
+<td *ngIf="card.isEditing">
+  <select class="form-control" [(ngModel)]="card.Dropdown" [ngClass]="{'error-placeholder': isCityInvalid(card) && hasAttemptedSave}">
+    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+  </select>
+  <div *ngIf="isCityInvalid(card) && hasAttemptedSave" class="text-danger">
+    Please select a valid city.
+  </div>
+</td>
+
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.UploadFile" placeholder="Enter Address" [ngClass]="{'error-placeholder': isAddressInvalid(card) && hasAttemptedSave}"/>
+  <div *ngIf="isAddressInvalid(card) && hasAttemptedSave" class="text-danger">
+    Please enter an address.
+  </div>
+</td>
+
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.Zipcode" placeholder="Enter Zipcode" [ngClass]="{'error-placeholder': isZipcodeInvalid(card) && hasAttemptedSave}" (input)="validateZipcode(card)"/>
+  <div *ngIf="isZipcodeInvalid(card) && hasAttemptedSave" class="text-danger">
+    Zipcode must be a valid number.
+  </div>
+</td>
+
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.PostalCode" placeholder="Enter Postalcode" [ngClass]="{'error-placeholder': isPostalcodeInvalid(card) && hasAttemptedSave}" (input)="validatePostalcode(card)"/>
+  <div *ngIf="isPostalcodeInvalid(card) && hasAttemptedSave" class="text-danger">
+    Postal code must be a valid number.
+  </div>
+</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- City Column -->
+<td *ngIf="card.isEditing">
+  <select class="form-control" [(ngModel)]="card.Dropdown" [ngClass]="{'error-placeholder': isCityInvalid(card) && card.errorMessage}">
+    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+  </select>
+  <div *ngIf="isCityInvalid(card) && card.errorMessage" class="text-danger">
+    {{ card.errorMessage }}
+  </div>
+</td>
+
+<!-- Address Column -->
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.UploadFile" placeholder="Enter Address" [ngClass]="{'error-placeholder': isAddressInvalid(card) && card.errorMessage}"/>
+  <div *ngIf="isAddressInvalid(card) && card.errorMessage" class="text-danger">
+    {{ card.errorMessage }}
+  </div>
+</td>
+
+<!-- Zip Code Column -->
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.Zipcode" placeholder="Enter Zipcode" [ngClass]="{'error-placeholder': isZipcodeInvalid(card) && card.errorMessage}" (input)="validateZipcode(card)"/>
+  <div *ngIf="isZipcodeInvalid(card) && card.errorMessage" class="text-danger">
+    {{ card.errorMessage }}
+  </div>
+</td>
+
+<!-- Postal Code Column -->
+<td *ngIf="card.isEditing">
+  <input type="text" class="form-control" [(ngModel)]="card.PostalCode" placeholder="Enter Postalcode" [ngClass]="{'error-placeholder': isPostalcodeInvalid(card) && card.errorMessage}" (input)="validatePostalcode(card)"/>
+  <div *ngIf="isPostalcodeInvalid(card) && card.errorMessage" class="text-danger">
+    {{ card.errorMessage }}
+  </div>
+</td>
+
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common';
+@Component({
+  selector: 'app-location',
+  standalone: true,
+  imports: [FormsModule,CommonModule],
+  templateUrl: './location.component.html',
+  styleUrl: './location.component.css'
+})
+
+export class LocationComponent implements OnInit {
+  cards: any[] = [];
+  dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
+  addCardErrorMessage: string = ''; 
+  isAddNewDisabled: boolean = false; 
+  editDisabled: boolean = false;
+
+  ngOnInit(): void {}
+
+  addNewCard() {
+    if (this.cards.some(card => card.isEditing)) {
+      // this.addCardErrorMessage = 'Please complete the current card before adding a new one.';
+      this.isAddNewDisabled = true; // Disable the button
+      return; // Prevent adding a new card
+    }
+
+    this.addCardErrorMessage = '';
+    this.isAddNewDisabled = false; // Enable the button
+
+    const newCard = {
+      name: '',
+      Dropdown: '',
+      UploadFile: '',
+      filePreview: '',
+      isEditing: true,
+      date: '',
+      errorMessage: '',
+    };
+    this.cards.push(newCard);
+  }
+
+  editCard(index: number) {
+    // Check if any card is currently being edited
+    if (this.cards.some(card => card.isEditing)) {
+      // this.addCardErrorMessage = 'Please complete the current card before editing another.';
+      return // Prevent editing another card
+    }
+
+    // Allow editing the selected card
+    this.cards.forEach((card, i) => (card.isEditing = i === index));
+    this.cards[index].errorMessage = ''; // Clear previous error message
+    this.isAddNewDisabled = true; // Optionally disable adding new cards while editing
+  }
+
+
+  isNameInvalid(card: any): boolean {
+    return card.errorMessage && (!card.name|| /\d/.test(card.name));
+  }
+
+  isDropdownInvalid(card: any): boolean {
+    return card.errorMessage && !card.Dropdown;
+  }
+
+  isDateInvalid(card: any): boolean {
+    return card.errorMessage && !card.date;
+  }
+
+  isFileInvalid(card: any): boolean {
+    return card.errorMessage && !card.UploadFile;
+  }
+
+  saveCard(index: number) {
+    const card = this.cards[index];
+    let hasError = false;
+    card.errorMessage = ''; // Reset error message
+
+    if (!card.name) {
+      card.errorMessage = 'Please fill in all fields before saving.';
+      hasError = true;
+    } else if (/\d/.test(card.name)) {
+      card.errorMessage = 'Name cannot contain numbers.';
+      hasError = true;
+    } else if (this.cards.some((c, i) => c.name === card.name && i !== index)) {
+      card.errorMessage = 'This name is already added. Please choose a different name.';
+      hasError = true;
+    }
+
+    if (!hasError) {
+      if (!card.Dropdown || !card.UploadFile || !card.date) {
+        card.errorMessage = 'Please fill in all fields before saving.';
+        hasError = true;
+      }
+    }
+    
+    if (!hasError) {
+      card.isEditing = false; // Enable submit after saving
+      this.isAddNewDisabled = false; // Re-enable the button after saving
+      this.addCardErrorMessage = ''; // Clear any previous error messages
+    }
+  }
+
+  
+
+  deleteCard(index: number) {
+    this.cards.splice(index, 1);
+    this.isAddNewDisabled = this.cards.some(card => card.isEditing);
+    if (!this.isAddNewDisabled) {
+      this.addCardErrorMessage = ''; // Clear any previous error messages 
+    }
+  }
+
+  onFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.cards[index].filePreview = e.target?.result as string ; // Set the file preview
+        this.cards[index].UploadFile = file.name; // Store the file name
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.cards[index].UploadFile = ''; // Reset if no file is selected
+    }
+  }
+
+  isOptionDisabled(option: string): boolean {
+    return this.cards.some((card) => card.Dropdown === option);
+  }
+
+  openPreview(card: any, _index: number) {
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.write(`
+        <html>
+          <head>
+            <title>Preview</title>
+            <style>
+              body { font-family: Arial, sans-serif; }
+              img { max-width: 50%; height: auto; }
+            </style>
+          </head>
+          <body>
+            <h1>Preview for ${card.name}</h1>
+            <p><strong>Dropdown:</strong> ${card.Dropdown}</p>
+            <p><strong>Date:</strong> ${card.date}</p>
+            <p><strong>File:</strong> ${card.UploadFile}</p>
+            ${card.filePreview ? `<img src="${card.filePreview}" alt="File Preview" />` : ''}
+          </body>
+        </html>
+      `);
+      newTab.document.close();
+    } else {
+      console.error('Failed to open new tab. Please check your browser settings.');
+    }
+  }
+}
+
+
+
+check both files and fix it and give full updated code
+<div class="container-lg">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>Location <b>Details</b></h2>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-info add-new" (click)="addNewCard()" [disabled]="isAddNewDisabled || editDisabled">
+              <i class="fa fa-plus"></i> Add New Card
+            </button>
+            <div *ngIf="addCardErrorMessage" class="text-danger">
+              {{ addCardErrorMessage }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Error message -->
+      <div *ngIf="cards.length > 0 && cards[cards.length - 1].errorMessage" class="text-danger">
+        {{ cards[cards.length - 1].errorMessage }}
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Zip Code</th>
+            <th>Postal Code</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let card of cards; let i = index">
+            <!-- State Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.name }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <select class="form-control" [(ngModel)]="card.name" [ngClass]="{'error-placeholder': isStateInvalid(card)}">
+                <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+              </select>
+              <div *ngIf="isStateInvalid(card)" class="text-danger">
+                Please select a valid state.
+              </div>
+            </td>
+
+            <!-- City Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.Dropdown }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <select class="form-control" [(ngModel)]="card.Dropdown" [ngClass]="{'error-placeholder': isCityInvalid(card)}">
+                <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+              </select>
+              <div *ngIf="isCityInvalid(card)" class="text-danger">
+                Please select a valid city.
+              </div>
+            </td>
+
+            <!-- Address Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.UploadFile }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.UploadFile" placeholder="Enter Address" [ngClass]="{'error-placeholder': isAddressInvalid(card)}"/>
+              <div *ngIf="isAddressInvalid(card)" class="text-danger">
+                Please enter an address.
+              </div>
+            </td>
+
+            <!-- Zip Code Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.Zipcode }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.Zipcode" placeholder="Enter Zipcode" [ngClass]="{'error-placeholder': isZipcodeInvalid(card)}" (input)="validateZipcode(card)"/>
+              <div *ngIf="isZipcodeInvalid(card)" class="text-danger">
+                Zipcode must be a valid number.
+              </div>
+            </td>
+
+            <!-- Postal Code Column -->
+            <td *ngIf="!card.isEditing">
+              {{ card.PostalCode }}
+            </td>
+            <td *ngIf="card.isEditing">
+              <input type="text" class="form-control" [(ngModel)]="card.PostalCode" placeholder="Enter Postalcode" [ngClass]="{'error-placeholder': isPostalcodeInvalid(card)}" (input)="validatePostalcode(card)"/>
+              <div *ngIf="isPostalcodeInvalid(card)" class="text-danger">
+                Postal code must be a valid number.
+              </div>
+            </td>
+
+            <!-- Actions Column -->
+            <td class="text-center">
+              <ng-container *ngIf="card.isEditing; else normalActions">
+                <div class="d-flex flex-column abtns">
+                  <button class="btn btn-success btn-sm subbtn" (click)="saveCard(i)" [disabled]="isFormInvalid(card)">Submit</button>
+                  <button class="btn btn-danger btn-sm delbtn" (click)="deleteCard(i)">Delete</button>
+                </div>
+              </ng-container>
+              <ng-template #normalActions>
+                <button class="btn btn-primary btn-sm" (click)="editCard(i)">Edit</button>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-location',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  templateUrl: './location.component.html',
+  styleUrls: ['./location.component.css']
+})
+export class LocationComponent implements OnInit {
+  cards: any[] = [];
+  states = ['New York', 'California', 'Texas']; // Example states
+  cities = ['New York City', 'Los Angeles', 'Austin']; // Example cities
+  addCardErrorMessage: string = ''; 
+  isAddNewDisabled: boolean = false;
+  editDisabled: boolean = false;
+
+  ngOnInit(): void {}
+
+  addNewCard() {
+    if (this.cards.some(card => card.isEditing)) {
+      this.isAddNewDisabled = true;
+      return;
+    }
+
+    this.addCardErrorMessage = ''; // Reset the error message
+    this.isAddNewDisabled = false;
+
+    const newCard = {
+      name: '',
+      Dropdown: '',
+      UploadFile: '',
+      Zipcode: '',
+      PostalCode: '',
+      isEditing: true,
+      errorMessage: '',
+    };
+    this.cards.push(newCard);
+  }
+
+  editCard(index: number) {
+    if (this.cards.some(card => card.isEditing)) {
+      return;
+    }
+
+    this.cards.forEach((card, i) => (card.isEditing = i === index));
+    this.cards[index].errorMessage = '';
+    this.isAddNewDisabled = true;
+  }
+
+  isStateInvalid(card: any): boolean {
+    return !card.name;
+  }
+
+  isCityInvalid(card: any): boolean {
+    return !card.Dropdown;
+  }
+
+  isAddressInvalid(card: any): boolean {
+    return !card.UploadFile;
+  }
+
+  isZipcodeInvalid(card: any): boolean {
+    return !card.Zipcode || !/^\d+$/.test(card.Zipcode);
+  }
+
+  isPostalcodeInvalid(card: any): boolean {
+    return !card.PostalCode || !/^\d+$/.test(card.PostalCode);
+  }
+
+  // Define the isFormInvalid method to check if any field is invalid
+  isFormInvalid(card: any): boolean {
+    return (
+      this.isStateInvalid(card) || 
+      this.isCityInvalid(card) || 
+      this.isAddressInvalid(card) || 
+      this.isZipcodeInvalid(card) || 
+      this.isPostalcodeInvalid(card)
+    );
+  }
+
+  saveCard(index: number) {
+    const card = this.cards[index];
+    let hasError = false;
+    card.errorMessage = '';
+  
+    // Field-specific validation
+    if (this.isStateInvalid(card)) {
+      card.errorMessage = 'Please select a valid state.';
+      hasError = true;
+    }
+  
+    if (this.isCityInvalid(card)) {
+      card.errorMessage = 'Please select a city.';
+      hasError = true;
+    }
+  
+    if (this.isAddressInvalid(card)) {
+      card.errorMessage = 'Please provide an address.';
+      hasError = true;
+    }
+  
+    if (this.isZipcodeInvalid(card)) {
+      card.errorMessage = 'Zipcode must be a valid number.';
+      hasError = true;
+    }
+  
+    if (this.isPostalcodeInvalid(card)) {
+      card.errorMessage = 'Postal Code must be a valid number.';
+      hasError = true;
+    }
+  
+    if (!hasError) {
+      card.isEditing = false;
+      this.isAddNewDisabled = false;
+      this.addCardErrorMessage = ''; // Reset error message on success
+    }
+  }
+  
+  deleteCard(index: number) {
+    this.cards.splice(index, 1);
+    this.isAddNewDisabled = this.cards.some(card => card.isEditing);
+    if (!this.isAddNewDisabled) {
+      this.addCardErrorMessage = ''; // Reset error message when card is deleted
+    }
+  }
+
+  onFileChange(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.cards[index].filePreview = e.target?.result as string;
+        this.cards[index].UploadFile = file.name;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.cards[index].UploadFile = '';
+    }
+  }
+
+  openPreview(card: any, _index: number) {
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.write(`
+        <html>
+          <head>
+            <title>Preview</title>
+            <style>
+              body { font-family: Arial, sans-serif; }
+              img { max-width: 50%; height: auto; }
+            </style>
+          </head>
+          <body>
+            <h1>Preview for ${card.name}</h1>
+            <p><strong>City:</strong> ${card.Dropdown}</p>
+            <p><strong>Address:</strong> ${card.UploadFile}</p>
+            <p><strong>Zipcode:</strong> ${card.Zipcode}</p>
+            <p><strong>Postal Code:</strong> ${card.PostalCode}</p>
+            ${card.filePreview ? `<img src="${card.filePreview}" alt="File Preview" />` : ''}
+          </body>
+        </html>
+      `);
+      newTab.document.close();
+    } else {
+      console.error('Failed to open new tab. Please check your browser settings.');
+    }
+  }
+}
+
+
